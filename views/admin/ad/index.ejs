@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">	
+    <title><%= title %></title>
+
+    <!-- Bootstrap core CSS -->
+	<link rel='stylesheet' href='/public/plugin/bootstrap/css/bootstrap.min.css' />
+	<link rel='stylesheet' href='/public/css/admin.css' />
+    <!--[if lt IE 9]>
+      <script src="/public/plugin/html5shiv/html5shiv.min.js"></script>
+      <script src="/public/plugin/respond/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <%- include ../_header %>
+    <div class="container bs-docs-container">
+      <div class="row">
+        <div class="col-md-2">
+          <%- include ../_ad_side %>
+        </div>
+        <div class="col-md-9 im-main" role="main">
+          <div class="bs-docs-section">
+  			<form action="/admin/system/update" method="post">
+				<div class="row im-input">
+					<div class="col-md-7">
+						<div class="input-group">
+							<span class="input-group-addon">
+								网站名
+							</span>
+							<input type="text" class="form-control"  placeholder="请输入网站名">
+					    </div><!-- /input-group -->	
+					</div>
+					<div class="col-md-5 im-input-des">
+						
+					</div>
+				</div>
+				<div class="row im-input">
+					<div class="col-md-7">
+						<div class="input-group">
+							<span class="input-group-addon">
+								域名
+							</span>
+							<input type="text" class="form-control"  placeholder="">
+					    </div><!-- /input-group -->	
+					</div>
+					<div class="col-md-5 im-input-des">
+						
+					</div>
+				</div>
+				<div class="row im-input">
+					<div class="col-md-7">
+		          		<div class="input-group">
+							<span class="input-group-addon">
+								关键字
+							</span>
+							<input type="text" class="form-control"  placeholder="">
+					    </div><!-- /input-group -->						
+					</div>
+					<div class="col-md-5 im-input-des">
+						将显示于首页的meta keyword
+					</div>
+				</div>
+				<div class="row im-input">
+					<div class="col-md-7">
+						<div class="input-group">
+							<span class="input-group-addon">
+								描述
+							</span>
+							<input type="text" class="form-control"  placeholder="">
+					    </div><!-- /input-group -->	
+					</div>
+					<div class="col-md-5 im-input-des">
+						将显示于首页的meta description
+					</div>
+				</div>
+				<div class="row im-input">
+					<div class="col-md-7">
+						<div class="input-group">
+							<span class="input-group-addon">
+								所有者
+							</span>
+							<input type="text" class="form-control"  placeholder="">
+					    </div><!-- /input-group -->
+					</div>
+					<div class="col-md-5 im-input-des">
+						
+					</div>
+				</div>
+				<div class="row im-input">
+					<div class="col-md-7">
+						<div class="input-group">
+							<span class="input-group-addon">
+								邮箱
+							</span>
+							<input type="text" class="form-control"  placeholder="">
+					    </div><!-- /input-group -->	
+					</div>
+					<div class="col-md-5 im-input-des">
+						
+					</div>
+				</div>
+				<div class="row im-input">
+					<div class="col-md-7">
+						<div class="input-group">
+							<span class="input-group-addon">
+								电话
+							</span>
+							<input type="text" class="form-control"  placeholder="">
+					    </div><!-- /input-group -->	
+					</div>
+					<div class="col-md-5 im-input-des">
+						
+					</div>
+				</div>
+				<div class="row im-input">
+					<div class="col-md-7">
+						<div class="input-group">
+					<span class="input-group-addon">
+						邮编
+					</span>
+					<input type="text" class="form-control"  placeholder="">
+			    </div><!-- /input-group -->	
+					</div>
+					<div class="col-md-5 im-input-des">
+						
+					</div>
+				</div>
+				<div class="row im-input">
+					<div class="col-md-7">
+						<div class="input-group">
+							<span class="input-group-addon">
+								地址
+							</span>
+							<input type="text" class="form-control"  placeholder="">
+					    </div><!-- /input-group -->	
+					</div>
+					<div class="col-md-5 im-input-des">
+						
+					</div>
+				</div>
+				<div class="row im-input">
+					<div class="col-md-7">
+						<div class="input-group">
+							<span class="input-group-addon">
+								备案号
+							</span>
+							<input type="text" class="form-control"  placeholder="">
+					    </div><!-- /input-group -->	
+					</div>
+					<div class="col-md-5 im-input-des">
+						
+					</div>
+				</div>
+				<div class="btn-group">
+				  	<button class="btn btn-default btn-lg" type="button">
+					    提交修改
+					  </button>
+				</div>       			
+  			</form>
+          </div>
+        </div>
+      </div>
+       
+    </div> <!-- /container -->
+    <script src="/public/plugin/jquery/jquery.1.10.2.min.js"></script>
+    <script src="/public/plugin/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/public/js/admin.js"></script>
+  </body>
+</html>

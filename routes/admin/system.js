@@ -1,3 +1,6 @@
 module.exports.index = function(req, res){
-	res.render('admin/system', { title: '系统基本参数配置' });
+	var System = require(__dirname+"/../../model/system"),
+		systemModel = new System(),
+		config = systemModel.getConfig();
+	res.render('admin/system/index', { title: '系统基本参数配置',siteInfo : config.siteInfo });
 };
