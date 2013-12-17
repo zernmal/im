@@ -16,7 +16,7 @@ module.exports = function(app) {
   		
   		var indexPage = function(rq,rs){
         //显示首页，由于req可能被处理过，所以在这里不直接使用上级作用域的req
-        res.render('index', { title: 'Express' }); 
+        res.render('../templates/index', { title: 'Express' }); 
       },
       go404 = function(rq,rs){
          res.render('404page', { title: '404page' }); 

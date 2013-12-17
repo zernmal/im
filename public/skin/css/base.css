@@ -1,0 +1,72 @@
+@charset "utf-8";
+/* CSS Document */
+/* 标签样式重置 */
+html,body,div,p,em,address,ul,ol, li,dl,dt,dd,h1,h2,h3,h4,h5,h6,table,caption,tr,th,td,cite,blockquote,code,pre,form,textarea,select,input,fieldset, legend,label{margin:0;padding:0;}
+body{font:normal 13px/1.6em "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;color:#595150;background:#FFF;}
+img{vertical-align:top;border:0;}
+/* ul,dl,li{list-style: none;} */
+table{border-collapse:collapse;border-spacing:0;}
+address,caption,cite,code,dfn,em,th,var {font-style:normal;font-weight:normal;}
+option {padding-left:0.5em}
+
+/* Safari 3.0 and Opera 9 rules here */
+#TextNav *{font-family:STSong;}
+
+/* 链接 */
+a{text-decoration:none;color:#555;}
+a:hover{text-decoration:underline;color:#555;}
+
+/* 浮动 */
+.fl{float:left;}
+.fr{float: right;}
+/* 清除浮动 */
+.clear {border-top:1px solid transparent !important;margin-top:-1px !important;border-top:0;margin-top:0;clear:both;visibility:hidden;}
+
+/* 边距 */
+.m_10{margin:10px;}
+.m_t_10{margin-top:10px;}
+.m_r_10{margin-right:10px;}
+.m_b_10{margin-bottom:10px;}
+.m_l_10{margin-left:10px;}
+
+.m_5{margin:5px;}
+.m_t_5{margin-top:5px;}
+.m_r_5{margin-right:5px;}
+.m_b_5{margin-bottom:5px;}
+.m_l_5{margin-left:5px;}
+
+/* 内边距 */
+.p_10{padding:10px;}
+.p_t_10{padding-top:10px;}
+.p_r_10{padding-right:10px;}
+.p_b_10{padding-bottom:10px;}
+.p_l_10{padding-left:10px;}
+
+.p_5{padding:5px;}
+.p_t_5{padding-top:5px;}
+.p_r_5{padding-right:5px;}
+.p_b_5{padding-bottom:5px;}
+.p_l_5{padding-left:5px;}
+
+.clearfix:after{content:" ";display:block;height:0;clear:both;visibility:hidden}
+.clearfix{zoom:1}
+
+
+/* 禁用iPhone中Safari的字号自动调整 */
+html {
+	-webkit-text-size-adjust: none;
+}
+/* 设置HTML5元素为块 */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+/* 设置图片视频等自适应调整 */
+img {
+	max-width: 100%;
+	height: auto;
+	width: auto\9; /* ie8 */
+}
+.video embed, .video object, .video iframe {
+	width: 100%;
+	height: auto;
+}

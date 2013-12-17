@@ -1,4 +1,4 @@
-var System = function(){
+var Category = function(){
 	var _configFileHandle = "no",
 		_that = this;		
 
@@ -14,10 +14,6 @@ var System = function(){
 		console.log("update siteInfo");
 	};
 
-	_that.getDbInfo =  function(){
-		return require(__dirname+'/../config.js').dbInfo;
-	};
-
 };
 
-module.exports = System;
+module.exports = Category;

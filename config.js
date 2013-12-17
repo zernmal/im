@@ -10,5 +10,11 @@ module.exports = {
 		"zip" : "510000",
 		"address" : "广东省深圳市南山区",
 		"icp" : "粤ICP1090909"
+	},
+	dbInfo : {
+		"host" : "localhost",
+		"dbname" : "im",
+		"user" : "root",
+		"passwd" : ""
 	}
 }
