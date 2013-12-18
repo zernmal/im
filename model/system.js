@@ -1,7 +1,6 @@
 var System = function(){
 	var _configFileHandle = "no",
-		_that = this;		
-
+		_that = this;	
 	
 	_that.getConfig = function(){
 		/*var fs = require("fs"),
