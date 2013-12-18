@@ -6,7 +6,10 @@ var controller = null,
 	path = '',
 	pathLenght = 0,
 	fs = require('fs'),
-  thePath = require("path");  
+  thePath = require("path");
+  require(__dirname + "/../lib/functions");
+
+  
  
 module.exports = function(app) {  
   	app.get(/^\/(.*)/i, function(req, res){
