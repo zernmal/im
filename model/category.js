@@ -1,20 +1,21 @@
-
-
+getLibFile("db");
 var Category = function(){
 	var _configFileHandle = "no",
-		_that = this;		
-
+		_that = this;
 	
 	_that.getAllCategory = function(){
-		/*var fs = require("fs"),
-			data = fs.readFileSync(__dirname+'/../config.js');
-		return JSON.parse(data);*/
-		return require(__dirname+'/../config.js').siteInfo;
+		dbConnection.query('select * from s_category', function(err, rows, fields) {
+			if (err) throw err;
+			console.log(rows[0]);
+		});
 	};
 
-	_that.updateSiteInfo = function(siteInfo){
-		console.log("update siteInfo");
+	_that.getCategory = function(siteInfo){
+
 	};
+	_that.updateCategory = function(categoryid,options){
+
+	}
 
 };
 
