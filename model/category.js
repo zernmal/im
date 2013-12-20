@@ -4,9 +4,13 @@ var Category = function(){
 		_that = this;
 	
 	_that.getAllCategory = function(){
-		dbConnection.query('select * from s_category', function(err, rows, fields) {
+		var sql = 'select * from s_category as c ' +
+					'left join s_category_info as ci on c.categoryid = ci.categoryid '+
+					'left join s_category_setting as cs on c.categoryid = cs.categoryid ';
+		//console.log(sql);
+		dbConnection.query( sql , function(err, rows, fields) {
 			if (err) throw err;
-			console.log(rows[0]);
+			console.log(rows);
 		});
 	};
 
