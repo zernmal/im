@@ -1,7 +1,6 @@
 getLibFile("db");
 var Category = function(){
-	var _configFileHandle = "no",
-		_that = this;
+	var _that = this;
 	
 	_that.getAllCategory = function(){
 		var sql = 'select * from s_category as c ' +
