@@ -8,11 +8,10 @@ module.exports.index = function(req, res){
 };
 
 module.exports.add = function(req,res){
-	console.log(categories);
 	res.render("admin/category/add",{title:'添加栏目'});
 }
 
 module.exports.create = function(req,res){
-	console.log(req.params);
+	console.log(req.body);
 	res.render("admin/category/add",{title:'创建栏目'});
 }

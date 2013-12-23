@@ -9,7 +9,7 @@ var Category = function(){
 		//console.log(sql);
 		dbConnection.query( sql , function(err, rows, fields) {
 			if (err) throw err;
-			console.log(rows);
+			//console.log(rows);
 		});
 	};
 
