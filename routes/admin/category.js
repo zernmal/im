@@ -1,6 +1,6 @@
 var Category = getModelFile("category"),
 	categoryModel = new Category()
-	categories = categoryModel.getAllCategory();
+	categories = categoryModel.getAll();
 
 module.exports.index = function(req, res){
 	res.render('admin/category/index', { title: '栏目列表' });	
@@ -12,6 +12,6 @@ module.exports.add = function(req,res){
 }
 
 module.exports.create = function(req,res){
-	console.log(req.body);
+	categoryModel.create(req.body);
 	res.render("admin/category/add",{title:'创建栏目'});
 }
