@@ -4,10 +4,38 @@ var extend = require("node.extend"),
 	categoryModel = new Category(),
 	mysql = require("mysql");
 var Article = function(){
-	var _that = this;
+	var _that = this,
+		toDbArticleInfo = function(jsonTypeArticle){
+			var a = jsonTypeArticle,
+				article = {
+					article : {
+						articleid : a.articleid || null,
+						categoryid : a.categoryid || 0,
+						title : a.title || "",
+						pic : a.pic || "",
+						keyword : a.keyword || "",
+						description : a.description || "",
+						time : a.time || getDatetime((new Date()).getTime()),
+						commentnum : a.commentnum || 0,
+						isrecommend : a.isrecommend || 0,
+						istop : a.istop || 0,
+						attachmentnum : a.attachmentnum || 0,
+						userid : a.userid || 0,
+						writer : a.writer || "",
+						from : a.from || "",
+						click : a.click || 0,
+						isdeleted : a.isdeleted || 0
+					},
+					article_info : {
+						articleid : a.articleid || null,
+						content : a.content || ""
+					}
+				};
+			return article;
+		};
 
 	_that.get = function(articleid,callback){//获取一篇文章的内容
-
+		callback();
 	};
 	_that.getCustom = function(options,callback){//获取定制条数的信息，可用于分页是显示
 		options = options || {};
@@ -15,7 +43,6 @@ var Article = function(){
 			commentSql = '',
 			attachmentSql = '',
 			goArticleQuery = function(){
-				console.log(articleSql);
 				dbConnection.query( articleSql , function(err, rows, fields) {
 					if (err){
 						throw err;
@@ -32,6 +59,8 @@ var Article = function(){
 				}else{//只显示基本状态信息
 					articleSql = 'select * from i_article as a ';
 				}
+				articleSql += 'where a.isdeleted = 0 ';
+
 			},
 			numLimit = function(){
 				goArticleQuery();
@@ -57,18 +86,55 @@ var Article = function(){
 						for(var i = 0 ; i < rows.length ; i++){
 							inC.push(rows[i].categoryid);
 						}
-						articleSql += ' where a.categoryid in('+inC.join(",")+') ';
+						articleSql += ' and a.categoryid in('+inC.join(",")+') ';
 						orderLimit();
 						
 					});				
-				}else{
+				}else{					
 					orderLimit();
 				}
 			};
 
 		addLimit();
-		categoryLimit();
-		
+		categoryLimit();		
+	};
+
+	_that.create = function(article,sCallback,fCallback){
+		var article = toDbArticleInfo(article),
+			a = article.article,
+			ai = article.article_info;
+		dbConnection.query( 'INSERT INTO i_article SET ?', a , function(err,result) {
+			if (err){
+				throw err;
+				fCallback && fCallback();
+			}else{
+				ai.articleid = result.insertId;
+				dbConnection.query('INSERT INTO i_article_info SET ?', ai ,function(err,rows,fields){
+					if(err){
+						throw err;
+						fCallback && fCallback();
+					}else{
+						var desC = extend(a,ai);
+						sCallback && sCallback(desC);
+					}
+				});//s_article_info
+			}
+		});//s_article	
+	};
+
+	_that.destroy = function(articleid,sCallback,fCallback){
+		dbConnection.query("update i_article set ? where articleid = "+articleid+"",{isdeleted:1},function(err,result){
+			if(err){
+				throw err,
+				fCallback && fCallback();
+			}else{
+				sCallback && sCallback();	
+			}			
+		});		
+	};
+
+	_that.update = function(articleid,article,sCallback,fCallback){
+		sCallback && sCallback();
 	};
 };
 

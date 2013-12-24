@@ -65,6 +65,21 @@ module.exports = function(app) {
 		getActionFile('admin/article').add(req,res);	
 	});
 
+	//后台destroy article
+	app.get('/admin/article/destroy',function(req,res){
+		getActionFile('admin/article').destroy(req,res);	
+	});
+
+	//后台edit article
+	app.get('/admin/article/edit',function(req,res){
+		getActionFile('admin/article').edit(req,res);	
+	});
+
+	//后台update article
+	app.post('/admin/article/update',function(req,res){
+		getActionFile('admin/article').update(req,res);	
+	});
+
 	//后台create article
 	app.post('/admin/article/create',function(req,res){
 		getActionFile('admin/article').create(req,res);	
@@ -75,6 +90,7 @@ module.exports = function(app) {
 		getActionFile('admin/system').index(req,res);	
 	});
 	
+
 	//404页面处理
 	app.use(function (req, res) {
 		go404(req,res);

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2013 年 12 月 24 日 13:19
+-- 生成日期: 2013 年 12 月 24 日 17:03
 -- 服务器版本: 5.5.20
 -- PHP 版本: 5.3.10
 
@@ -42,9 +42,19 @@ CREATE TABLE IF NOT EXISTS `i_article` (
   `writer` varchar(100) NOT NULL,
   `from` varchar(100) NOT NULL,
   `click` int(11) DEFAULT NULL,
+  `isdeleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`articleid`),
   KEY `categoryid` (`categoryid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- 转存表中的数据 `i_article`
+--
+
+INSERT INTO `i_article` (`articleid`, `categoryid`, `title`, `pic`, `keyword`, `description`, `time`, `commentnum`, `isrecommend`, `istop`, `attachmentnum`, `userid`, `writer`, `from`, `click`, `isdeleted`) VALUES
+(1, 1, '木木s木木木木幽幽幽幽幽幽幽幽幽幽幽幽幽幽', '', '奎土土ffd', '土土土', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '木木木木木木', '月月月月月月月', 0, 0),
+(2, 1, '木木s', '', '奎土土ffd', '土土土', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '木木木木木木', '月月月月月月月', 0, 0),
+(3, 5, 'dasfdfffffffffffff', '', '幽幽幽幽幽幽幽幽幽幽幽幽白白白白白白', '已已已', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '已已已已已', '已已', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -93,6 +103,15 @@ CREATE TABLE IF NOT EXISTS `i_article_info` (
   `content` text,
   PRIMARY KEY (`articleid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `i_article_info`
+--
+
+INSERT INTO `i_article_info` (`articleid`, `content`) VALUES
+(1, '众人众人众人众人众人众人众人众人众人众人众人众人众人众人众人众人'),
+(2, '众人众人众人众人众人众人众人众人众人众人众人众人众人众人众人众人'),
+(3, '之之之之之之之初痒痒痒痒痒痒');
 
 -- --------------------------------------------------------
 

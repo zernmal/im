@@ -41,7 +41,10 @@
 		  				<td><%= articles[i].title %></td>
 		  				<td></td>
 		  				<td></td>
-		  				<td></td>
+		  				<td>
+		  					<a href="/admin/article/edit?articleid=<%= articles[i].articleid %>">编辑</a> &nbsp;|&nbsp;
+		  					<a href="/admin/article/destroy?articleid=<%= articles[i].articleid %>">删除</a>
+	  					</td>
 		  			</tr>
 		  			<% } %>
 		  		</tbody>
