@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title><%= msg %></title>
+</head>
+<body>
+	<div id="notic">
+		<p><%= msg %></p>
+		<p><span id="time">2</span>秒后跳转 <a href="<%= gourl %>">回去</a> </p>
+	</div>
+	<script type="text/javascript">
+		var gourl = "<%= gourl %>" || "/",
+			time = 2;
+		setInterval(function(){
+			if(time==0){
+				location.href = gourl;
+			}else{
+				document.getElementById("time").innerText = time.toString();
+				time--;
+			}			
+		},1000);
+	</script>
+</body>
+</html>

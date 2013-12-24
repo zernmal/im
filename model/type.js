@@ -2,22 +2,20 @@ getLibFile("db");
 var Type = function(){
 	var _that = this;
 	
-	_that.getAllType = function(callback){
-		var sql = 'select * from s_type ';
-		//console.log(sql);
-		dbConnection.query( sql , function(err, rows, fields) {
+	_that.getAll = function(callback){
+		dbConnection.query( 'select * from s_type ', function(err, rows, fields) {
 			if (err) throw err;
-			callback(err,rows,fields);
+			callback(rows,fields);
 		});
 	};
 
-	_that.getType = function(){
+	_that.get = function(){
 
 	};
-	_that.updateType = function(){
+	_that.update = function(){
 
 	};
-	_that.createType = function(){
+	_that.create = function(){
 
 	};
 

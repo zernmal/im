@@ -1,142 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">	
-    <title><%= title %></title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">	
+	<title><%= title %></title>
 
-    <!-- Bootstrap core CSS -->
+	<!-- Bootstrap core CSS -->
 	<link rel='stylesheet' href='/public/plugin/bootstrap/css/bootstrap.min.css' />
 	<link rel='stylesheet' href='/public/css/admin.css' />
-    <!--[if lt IE 9]>
-      <script src="/public/plugin/html5shiv/html5shiv.min.js"></script>
-      <script src="/public/plugin/respond/respond.min.js"></script>
-    <![endif]-->
+	<!--[if lt IE 9]>
+	  <script src="/public/plugin/html5shiv/html5shiv.min.js"></script>
+	  <script src="/public/plugin/respond/respond.min.js"></script>
+	<![endif]-->
   </head>
   <body>
-    <%- include ../_header %>
-    <div class="container bs-docs-container">
-      <div class="row">
-        <div class="col-md-2">
-          <%- include ../_category_side %>
-        </div>
-        <div class="col-md-9 im-main" role="main">
-          <div class="bs-docs-section">
-              <form role="form" action="/admin/category/create" method="post">
-                <div class="form-group">
-                  <label for="">所属频道</label>
-                  <select id="categorytype" class="form-control" name="category[typeid]">
-                    <option value="1">article</option>
-                    <option value="2">job</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="item1">上级栏目</label>
-                  <input type="text" class="form-control" name="category[upid]" id="" placeholder="">
-                </div>
-                <div class="form-group">
-                  <label for="item1">栏目名</label>
-                  <input type="text" class="form-control" name="category[name]" id="item1" placeholder="">
-                </div>
-                <div class="form-group">
-                  <label for="item2">栏目图片</label>
-                  <input type="file" name="category[typepicfile]" id="item2">
-                  <p class="help-block"></p>
-                </div>
-                <div class="form-group">
-                  <label for="item3">关键字</label>
-                  <input type="text" class="form-control" name="category[keyword]" id="item3" placeholder="">
-                </div>
-                <div class="form-group">
-                  <label for="">描述</label>
-                  <textarea class="form-control" name="category[description]" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="">访问路径</label>
-                  <input type="text" class="form-control" name="category[staticpath]" id="" placeholder="">
-                </div>
-                <div class="form-group">
-                  <label for="">跳转的URL</label>
-                  <input type="text" class="form-control" name="category[gourl]" id="" placeholder="">
-                </div>
-                <div class="form-group">
-                  <label for="">栏目内容</label>
-                  <textarea class="form-control" name="category[content]" rows="13"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="">栏目显示模式</label>
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="isindex" name="category[isindex]"  id="" value="1" checked>
-                        栏目列表（文字）
-                    </label>
-                  </div>
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="isindex" name="category[isindex]"  id="" value="2" checked>
-                        栏目列表（图片）
-                    </label>
-                  </div>
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="isindex" name="category[isindex]"  id="" value="3" checked>
-                        栏目介绍
-                    </label>
-                  </div>
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="isindex" name="category[isindex]"  id="" value="4" checked>
-                        自定义首页
-                    </label>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="">是否显示在导航栏</label>                  
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="mshow" name="category[mshow]"  id="" value="1" checked>
-                        是
-                    </label>
-                  </div>
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="mshow" name="category[mshow]"  id="" value="0" checked>
-                        否
-                    </label>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="">每页显示信息条数</label>
-                  <input type="text" class="form-control" name="category[infonum]"  id="" placeholder="">
-                </div>
-                <div class="form-group">
-                  <label for="">目栏自定义首页模板</label>
-                  <input type="text" name="category[t_index]" value="templates/article/list_index.html" class="form-control" id="listindext" placeholder="">
-                </div>
-                <div class="form-group">
-                  <label for="">栏目列表（文字）模板</label>
-                  <input type="text" name="category[t_list]" class="form-control" value="templates/article/list.html" id="listt" placeholder="">
-                </div>
-                <div class="form-group">
-                  <label for="">目栏介绍模板</label>
-                  <input type="text" name="category[t_listb]" class="form-control" value="templates/article/list_body.html" id="listbodyt" placeholder="">
-                </div>
-                <div class="form-group">
-                  <label for="">目栏列表（图片）模板</label>
-                  <input type="text" name="category[t_listimg]" class="form-control" value="templates/article/list_image.html" id="listimaget" placeholder="">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-              </form>
-          </div>
-        </div>
-      </div>
-    </div> <!-- /container -->
-    <script src="/public/plugin/jquery/jquery.1.10.2.min.js"></script>
-    <script src="/public/plugin/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/public/js/admin.js"></script>
-    <script src="/public/js/admin_category.js"></script>
+	<%- include ../_header %>
+	<div class="container bs-docs-container">
+	  <div class="row">
+		<div class="col-md-2">
+		  <%- include ../_category_side %>
+		</div>
+		<div class="col-md-9 im-main" role="main">
+		  <div class="bs-docs-section">
+			  <form role="form" action="/admin/category/create" method="post">
+				<div class="form-group">
+				  <label for="">所属频道</label>
+				  <select id="categorytype" class="form-control" name="category[typeid]">
+					<% for( var i in types) {%>
+						<option value="<%= types[i].typeid %>"><%= types[i].name %></option>
+				  	<% } %>
+				  </select>
+				</div>
+				<div class="form-group">
+				  <label for="">上级栏目</label>
+				  <select id="categories" class="form-control" name="category[pid]">
+					  <% for( var i in categories) {%>
+						<option data-pid="<%= categories[i].pid %>" value="<%= categories[i].categoryid %>"><%= categories[i].name %></option>
+					  <% } %>
+				  </select>
+				</div>
+				<div class="form-group">
+				  <label for="item1">栏目名</label>
+				  <input type="text" class="form-control" name="category[name]" id="item1" placeholder="">
+				</div>
+				<div class="form-group">
+				  <label for="item2">栏目图片</label>
+				  <input type="file" name="category[typepicfile]" id="item2">
+				  <p class="help-block"></p>
+				</div>
+				<div class="form-group">
+				  <label for="item3">关键字</label>
+				  <input type="text" class="form-control" name="category[keyword]" id="item3" placeholder="">
+				</div>
+				<div class="form-group">
+				  <label for="">描述</label>
+				  <textarea class="form-control" name="category[description]" rows="3"></textarea>
+				</div>
+				<div class="form-group">
+				  <label for="">访问路径</label>
+				  <input type="text" class="form-control" name="category[staticpath]" id="" placeholder="">
+				</div>
+				<div class="form-group">
+				  <label for="">跳转的URL</label>
+				  <input type="text" class="form-control" name="category[gourl]" id="" placeholder="">
+				</div>
+				<div class="form-group">
+				  <label for="">栏目内容</label>
+				  <textarea class="form-control" name="category[content]" rows="13"></textarea>
+				</div>
+				<div class="form-group">
+				  <label for="">栏目显示模式</label>
+				  <div class="radio">
+					<label>
+					  <input type="radio" name="isindex" name="category[isindex]"  id="" value="1" checked>
+						栏目列表（文字）
+					</label>
+				  </div>
+				  <div class="radio">
+					<label>
+					  <input type="radio" name="isindex" name="category[isindex]"  id="" value="2" checked>
+						栏目列表（图片）
+					</label>
+				  </div>
+				  <div class="radio">
+					<label>
+					  <input type="radio" name="isindex" name="category[isindex]"  id="" value="3" checked>
+						栏目介绍
+					</label>
+				  </div>
+				  <div class="radio">
+					<label>
+					  <input type="radio" name="isindex" name="category[isindex]"  id="" value="4" checked>
+						自定义首页
+					</label>
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label for="">是否显示在导航栏</label>                  
+				  <div class="radio">
+					<label>
+					  <input type="radio" name="mshow" name="category[mshow]"  id="" value="1" checked>
+						是
+					</label>
+				  </div>
+				  <div class="radio">
+					<label>
+					  <input type="radio" name="mshow" name="category[mshow]"  id="" value="0" checked>
+						否
+					</label>
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label for="">每页显示信息条数</label>
+				  <input type="text" class="form-control" name="category[infonum]"  id="" placeholder="">
+				</div>
+				<div class="form-group">
+				  <label for="">目栏自定义首页模板</label>
+				  <input type="text" name="category[t_index]" value="templates/article/list_index.html" class="form-control" id="listindext" placeholder="">
+				</div>
+				<div class="form-group">
+				  <label for="">栏目列表（文字）模板</label>
+				  <input type="text" name="category[t_list]" class="form-control" value="templates/article/list.html" id="listt" placeholder="">
+				</div>
+				<div class="form-group">
+				  <label for="">目栏介绍模板</label>
+				  <input type="text" name="category[t_listb]" class="form-control" value="templates/article/list_body.html" id="listbodyt" placeholder="">
+				</div>
+				<div class="form-group">
+				  <label for="">目栏列表（图片）模板</label>
+				  <input type="text" name="category[t_listimg]" class="form-control" value="templates/article/list_image.html" id="listimaget" placeholder="">
+				</div>
+				<button type="submit" class="btn btn-default">Submit</button>
+			  </form>
+		  </div>
+		</div>
+	  </div>
+	</div> <!-- /container -->
+	<script src="/public/plugin/jquery/jquery.1.10.2.min.js"></script>
+	<script src="/public/plugin/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/public/js/admin.js"></script>
+	<script src="/public/js/admin_category_add.js"></script>
   </body>
 </html>

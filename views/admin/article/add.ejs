@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">	
+	<title><%= title %></title>
+
+	<!-- Bootstrap core CSS -->
+	<link rel='stylesheet' href='/public/plugin/bootstrap/css/bootstrap.min.css' />
+	<link rel='stylesheet' href='/public/css/admin.css' />
+	<!--[if lt IE 9]>
+	  <script src="/public/plugin/html5shiv/html5shiv.min.js"></script>
+	  <script src="/public/plugin/respond/respond.min.js"></script>
+	<![endif]-->
+  </head>
+  <body>
+	<%- include ../_header %>
+	<div class="container bs-docs-container">
+	  <div class="row">
+		<div class="col-md-2">
+		  <%- include ../_info_side %>
+		</div>
+		<div class="col-md-9 im-main" role="main">
+		  <div class="bs-docs-section">
+			<form action="/admin/info/create" method="post">
+				<div class="form-group">
+				  <label for="">所属栏目</label>
+				  <select id="categories" class="form-control" name="article[categoryid]">
+					<% for( var i in categories) {%>
+					<option data-pid="<%= categories[i].pid %>" value="<%= categories[i].categoryid %>"><%= categories[i].name %></option>
+					<% } %>
+				  </select>
+				</div>
+				<div class="form-group">
+					<label for="">文章标题</label>
+					<input type="text" class="form-control" name="article[title]">
+				</div>	
+				<div class="form-group">
+					<label for="">标题图片</label>
+				  	<input type="file" name="article[picfile]" id="">
+				</div>			
+				<div class="form-group">
+					<label for="">关键字</label>
+					<input type="text" class="form-control" name="article[keyword]">
+				</div>		
+				<div class="form-group">
+					<label for="">简介</label>
+					<input type="text" class="form-control" name="article[keyword]">
+				</div>	
+				<div class="form-group">
+					<label for="">作者</label>
+					<input type="text" class="form-control" name="article[writer]">
+				</div>	
+				<div class="form-group">
+					<label for="">来源</label>
+					<input type="text" class="form-control" name="article[from]">
+				</div>			
+				<div class="form-group">
+					<label for="">是否推荐</label>                  
+					<div class="radio">
+						<label><input type="radio" name="mshow" name="article[isrecommend]"  id="" value="1" checked>是</label>
+					</div>
+					<div class="radio">
+						<label><input type="radio" name="mshow" name="article[isrecommend]"  id="" value="0" checked>否</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="">是否置顶</label>                  
+					<div class="radio">
+						<label><input type="radio" name="mshow" name="article[istop]"  id="" value="1" checked>是</label>
+					</div>
+					<div class="radio">
+						<label><input type="radio" name="mshow" name="article[istop]"  id="" value="0" checked>否</label>
+					</div>
+				</div>
+				<div class="form-group">
+				  <label for="">栏目内容</label>
+				  <textarea class="form-control" name="article[content]" rows="13"></textarea>
+				</div>
+				<div class="btn-group">
+					<button class="btn btn-default btn-lg" type="button">发布</button>
+				</div>	
+			</form>
+		  </div>
+		</div>
+	  </div>
+	   
+	</div> <!-- /container -->
+	<script src="/public/plugin/jquery/jquery.1.10.2.min.js"></script>
+	<script src="/public/plugin/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/public/js/admin.js"></script>
+	<script src="/public/js/admin_article_add.js"></script>
+  </body>
+</html>

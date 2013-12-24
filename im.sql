@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 3.4.10.1
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2013 年 12 月 17 日 16:59
--- 服务器版本: 5.6.12-log
--- PHP 版本: 5.4.16
+-- 生成日期: 2013 年 12 月 24 日 13:19
+-- 服务器版本: 5.5.20
+-- PHP 版本: 5.3.10
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,11 +23,12 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- 表的结构 `i_artical`
+-- 表的结构 `i_article`
 --
 
-CREATE TABLE IF NOT EXISTS `i_artical` (
-  `articalid` int(11) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `i_article` (
+  `articleid` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `categoryid` int(11) unsigned NOT NULL,
   `title` varchar(100) DEFAULT NULL,
   `pic` varchar(100) DEFAULT NULL,
   `keyword` varchar(100) DEFAULT NULL,
@@ -38,36 +39,38 @@ CREATE TABLE IF NOT EXISTS `i_artical` (
   `istop` tinyint(1) DEFAULT '0',
   `attachmentnum` int(11) DEFAULT '0',
   `userid` int(11) unsigned DEFAULT NULL,
+  `writer` varchar(100) NOT NULL,
+  `from` varchar(100) NOT NULL,
   `click` int(11) DEFAULT NULL,
-  PRIMARY KEY (`articalid`),
-  KEY `artical` (`articalid`,`title`,`keyword`,`description`,`time`,`isrecommend`,`istop`)
+  PRIMARY KEY (`articleid`),
+  KEY `categoryid` (`categoryid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `i_artical_attachment`
+-- 表的结构 `i_article_attachment`
 --
 
-CREATE TABLE IF NOT EXISTS `i_artical_attachment` (
+CREATE TABLE IF NOT EXISTS `i_article_attachment` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `articalid` int(11) unsigned DEFAULT NULL,
+  `articleid` int(11) unsigned DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
   `time` datetime DEFAULT NULL,
   `src` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `artical_attachment` (`articalid`)
+  KEY `artical_attachment` (`articleid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `i_artical_comment`
+-- 表的结构 `i_article_comment`
 --
 
-CREATE TABLE IF NOT EXISTS `i_artical_comment` (
+CREATE TABLE IF NOT EXISTS `i_article_comment` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `articalid` int(11) unsigned DEFAULT NULL,
+  `articleid` int(11) unsigned DEFAULT NULL,
   `pid` int(11) unsigned DEFAULT NULL,
   `userid` int(11) unsigned DEFAULT NULL,
   `username` varchar(100) DEFAULT NULL,
@@ -76,20 +79,19 @@ CREATE TABLE IF NOT EXISTS `i_artical_comment` (
   `time` datetime DEFAULT NULL,
   `content` text,
   PRIMARY KEY (`id`),
-  KEY `artical_comment` (`id`,`articalid`,`pid`,`userid`)
+  KEY `artical_comment` (`id`,`articleid`,`pid`,`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `i_artical_info`
+-- 表的结构 `i_article_info`
 --
 
-CREATE TABLE IF NOT EXISTS `i_artical_info` (
-  `articalid` int(11) unsigned NOT NULL DEFAULT '0',
+CREATE TABLE IF NOT EXISTS `i_article_info` (
+  `articleid` int(11) unsigned NOT NULL DEFAULT '0',
   `content` text,
-  PRIMARY KEY (`articalid`),
-  UNIQUE KEY `artical_info` (`articalid`)
+  PRIMARY KEY (`articleid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -113,10 +115,10 @@ CREATE TABLE IF NOT EXISTS `i_user` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `log_artical`
+-- 表的结构 `log_article`
 --
 
-CREATE TABLE IF NOT EXISTS `log_artical` (
+CREATE TABLE IF NOT EXISTS `log_article` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `userid` int(11) unsigned DEFAULT NULL,
   `operation` char(50) DEFAULT NULL,
@@ -147,6 +149,7 @@ CREATE TABLE IF NOT EXISTS `s_admin` (
 CREATE TABLE IF NOT EXISTS `s_category` (
   `categoryid` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
+  `typeid` int(11) DEFAULT NULL COMMENT '对应s_type表里面的typeid，代表栏目所属频道',
   `pic` varchar(100) DEFAULT NULL,
   `keyword` varchar(100) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL,
@@ -155,7 +158,19 @@ CREATE TABLE IF NOT EXISTS `s_category` (
   `gourl` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`categoryid`),
   UNIQUE KEY `category` (`categoryid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- 转存表中的数据 `s_category`
+--
+
+INSERT INTO `s_category` (`categoryid`, `name`, `typeid`, `pic`, `keyword`, `description`, `pid`, `staticpath`, `gourl`) VALUES
+(1, 'IM动态', 1, '', 'IM动态', 'IM动态', 0, NULL, NULL),
+(3, 'ddddddddddfasdfasdf', 1, '', 'sssssss', 'dddd', 0, 'fff', 'ddddddd'),
+(4, '测试栏目', 1, '', 'd测试栏目', '', 0, 'aaaaaaaaa', ''),
+(5, 'fsdafasdf', 1, '', 'd', 'aaaaaaa', 3, 'afffffffff', ''),
+(6, '测试测试测试', 1, '', '测试测试', '', 5, '', ''),
+(7, '测大大大dd', 1, '', '测大大大dd', '测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd', 5, '', '');
 
 -- --------------------------------------------------------
 
@@ -169,6 +184,18 @@ CREATE TABLE IF NOT EXISTS `s_category_info` (
   PRIMARY KEY (`categoryid`),
   UNIQUE KEY `category_info` (`categoryid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `s_category_info`
+--
+
+INSERT INTO `s_category_info` (`categoryid`, `content`) VALUES
+(1, 'IM动态'),
+(3, 'aaaaa'),
+(4, 'fdsc测试栏目测试栏目测试栏目测试栏目\r\n测试栏目测试栏目测试栏目'),
+(5, 'sdafsdfasdf\r\nasdf\r\nas\r\ndfasdf'),
+(6, '测试测试测试\r\n测试测试测试测试测试\r\n测试\r\n测试\r\n测试测试测试'),
+(7, '测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd');
 
 -- --------------------------------------------------------
 
@@ -186,8 +213,21 @@ CREATE TABLE IF NOT EXISTS `s_category_setting` (
   `t_listb` varchar(100) DEFAULT NULL COMMENT '目栏介绍模板',
   `t_listimg` varchar(100) DEFAULT NULL COMMENT '目栏列表（图片）模板',
   `t_content` varchar(100) DEFAULT NULL COMMENT '目栏信息对应的模板',
-  `t_all` tinyint(4) DEFAULT NULL COMMENT '是否覆盖所有下级栏目模板设置'
+  `t_all` tinyint(4) DEFAULT NULL COMMENT '是否覆盖所有下级栏目模板设置',
+  PRIMARY KEY (`categoryid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `s_category_setting`
+--
+
+INSERT INTO `s_category_setting` (`categoryid`, `isindex`, `mshow`, `infonum`, `t_index`, `t_list`, `t_listb`, `t_listimg`, `t_content`, `t_all`) VALUES
+(1, 1, 1, 25, ' 	templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', NULL, NULL),
+(3, 3, 1, 23, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0),
+(4, 3, 1, 1, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0),
+(5, 3, 1, 25, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0),
+(6, 3, 1, 25, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0),
+(7, 3, 1, 25, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0);
 
 -- --------------------------------------------------------
 
@@ -202,9 +242,17 @@ CREATE TABLE IF NOT EXISTS `s_type` (
   `info_table` varchar(100) DEFAULT NULL,
   `log_table` varchar(100) DEFAULT NULL,
   `comment_table` varchar(100) DEFAULT NULL,
+  `attachment_table` varchar(100) NOT NULL,
   PRIMARY KEY (`typeid`),
   KEY `type` (`typeid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `s_type`
+--
+
+INSERT INTO `s_type` (`typeid`, `name`, `state_table`, `info_table`, `log_table`, `comment_table`, `attachment_table`) VALUES
+(1, 'article', 'i_article', 'i_article_info', 'log_article', 'i_article_comment', 'i_article_attachment');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
