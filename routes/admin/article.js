@@ -18,7 +18,9 @@ module.exports.add = function(req,res){
 };
 
 module.exports.create = function(req,res){
-	articleModel.create(req.body.article,function(){
+	var article = req.body.article;
+	article.picfile = req.files.picfile;
+	articleModel.create(article,function(){
 		res.render("notic",{msg:'创建信息成功',gourl:"/admin/article/index"});
 	});
 };

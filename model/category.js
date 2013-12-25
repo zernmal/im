@@ -106,10 +106,53 @@ var Category = function(){
 			}
 		});//s_category	
 	};
-	_that.update = function(categoryid,options,sCallback,fCallback){
-		sCallback && sCallback();
+	_that.update = function(categoryid,category,sCallback,fCallback){
+		category.categoryid = categoryid;
+		var category = toDbCategoryInfo(category),
+			c = category.category,
+			ci = category.category_info,
+			cs = category.s_category_setting;
+		dbConnection.query("update s_category set ? where categoryid = "+categoryid+"",c,function(err,result){
+			if(err){
+				throw err,
+				fCallback && fCallback();
+			}else{
+				dbConnection.query("update s_category_info set ? where categoryid = "+categoryid+"",ci,function(err,result){
+					if(err){
+						throw err;
+						fCallback && fCallback();
+					}else{
+						dbConnection.query("update s_category_setting set ? where categoryid = "+categoryid+"",cs,function(err,result){
+							if(err){
+								throw err;
+								fCallback && fCallback();
+							}else{
+								sCallback && sCallback(result);
+							}
+						});	
+					}
+				});	
+			}			
+		});
 	};
 	_that.destroy = function(categoryid,sCallback,fCallback){
+		dbConnection.query("DELETE FROM s_category WHERE categoryid = "+categoryid+"",function(err,result){
+			if(err){
+				throw err;
+				fCallback && fCallback();
+			}else{
+				//删除完栏目状态信息后再删除栏目内容和设计信息
+				dbConnection.query("DELETE FROM s_category_info WHERE categoryid = "+categoryid+"",function(err,result){
+					if(err) throw err;
+					
+					dbConnection.query("DELETE FROM s_category_setting WHERE categoryid = "+categoryid+"",function(err,result){
+						if(err) throw err;
+						sCallback && sCallback();
+					});
+				});
+				
+			}
+		});
 		sCallback && sCallback();
 	};
 };

@@ -2,7 +2,8 @@ getLibFile("db");
 var extend = require("node.extend"),
 	Category = getModelFile("category"),
 	categoryModel = new Category(),
-	mysql = require("mysql");
+	mysql = require("mysql"),
+	fs = require("fs");
 var Article = function(){
 	var _that = this,
 		toDbArticleInfo = function(jsonTypeArticle){
@@ -106,7 +107,10 @@ var Article = function(){
 	};
 
 	_that.create = function(article,sCallback,fCallback){
-		var article = toDbArticleInfo(article),
+
+		
+		var picfile = article.picfile,
+			article = toDbArticleInfo(article),
 			a = article.article,
 			ai = article.article_info;
 		dbConnection.query( 'INSERT INTO i_article SET ?', a , function(err,result) {
@@ -120,6 +124,9 @@ var Article = function(){
 						throw err;
 						fCallback && fCallback();
 					}else{
+
+						var targetDir = './public/article/' + ai.articleid + "." + picfile.name.split(".").pop(); 
+						console.log(targetDir);
 						var desC = extend(a,ai);
 						sCallback && sCallback(desC);
 					}
