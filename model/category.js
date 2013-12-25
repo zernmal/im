@@ -66,30 +66,20 @@ var Category = function(){
 		var sql = 'select * from s_category as c ' +
 					'left join s_category_info as ci on c.categoryid = ci.categoryid '+
 					'left join s_category_setting as cs on c.categoryid = cs.categoryid '+
-					'where categoryid = \''+categoryid+'\' limit 1';
-		//console.log(sql);
+					'where c.categoryid = \''+categoryid+'\' limit 1';
+		console.log(sql);
 		dbConnection.query( sql , function(err, rows, fields) {
 			if (err) throw err;
-			callback && callback(rows,fields);
+			callback && callback(rows[0],fields);
 			//console.log(rows);
 		});	
 					
-	};
-	_that.update = function(categoryid,options,sCallback,fCallback){
-
 	};
 	_that.create = function(category,sCallback,fCallback){
 		var category = toDbCategoryInfo(category),
 			c = category.category,
 			ci = category.category_info,
 			cs = category.s_category_setting;
-/*		console.log(c);
-		console.log("-------------------------------------")
-		console.log(mysql.format('INSERT INTO s_category SET ?', c));
-		console.log(mysql.format('INSERT INTO s_category_info SET ?', ci));
-		console.log(mysql.format('INSERT INTO s_category_setting SET ?', cs));
-*/
-
 		dbConnection.query( 'INSERT INTO s_category SET ?', c , function(err,result) {
 			if (err){
 				throw err;
@@ -115,6 +105,12 @@ var Category = function(){
 				});//s_category_info
 			}
 		});//s_category	
+	};
+	_that.update = function(categoryid,options,sCallback,fCallback){
+		sCallback && sCallback();
+	};
+	_that.destroy = function(categoryid,sCallback,fCallback){
+		sCallback && sCallback();
 	};
 };
 

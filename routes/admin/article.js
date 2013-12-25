@@ -42,7 +42,7 @@ module.exports.edit = function(req,res){
 	}else{
 		categoryModel.getAll({typeid : typeid },function(categories,cfields){
 			articleModel.get(articleid,function(article,afields){
-				res.render('admin/article/add', { title: '添加文章', categories: categories,article:article});
+				res.render('admin/article/edit', { title: '编辑文章', categories: categories,article:article});
 			});			
 		});
 	}	

@@ -15,7 +15,7 @@ var Article = function(){
 						pic : a.pic || "",
 						keyword : a.keyword || "",
 						description : a.description || "",
-						time : a.time || getDatetime((new Date()).getTime()),
+						time : a.time || getDatetime((new Date()).getTime()/1000),
 						commentnum : a.commentnum || 0,
 						isrecommend : a.isrecommend || 0,
 						istop : a.istop || 0,
@@ -35,7 +35,13 @@ var Article = function(){
 		};
 
 	_that.get = function(articleid,callback){//获取一篇文章的内容
-		callback();
+		var sql = 'select *, date_format(a.time,\'%Y-%m-%d %H:%i:%s\') as time from i_article as a ' +
+				'left join i_article_info as ai on a.articleid = ai.articleid ' +
+				'where a.articleid = \''+articleid+'\' limit 1';
+		dbConnection.query( sql , function(err, rows, fields) {
+			if (err) throw err;
+			callback && callback(rows[0],fields);
+		});	
 	};
 	_that.getCustom = function(options,callback){//获取定制条数的信息，可用于分页是显示
 		options = options || {};
@@ -54,7 +60,7 @@ var Article = function(){
 			},
 			addLimit = function(){
 				if(options.add){//显示更多信息
-					articleSql = 'select * from i_article as a ' +
+					articleSql = 'select *, date_format(a.time,\'%Y-%m-%d %H:%i:%s\') as time from i_article as a ' +
 						'left join i_article_info as ai on a.articleid = ai.articleid ';
 				}else{//只显示基本状态信息
 					articleSql = 'select * from i_article as a ';
@@ -130,11 +136,29 @@ var Article = function(){
 			}else{
 				sCallback && sCallback();	
 			}			
-		});		
+		});	
 	};
 
 	_that.update = function(articleid,article,sCallback,fCallback){
-		sCallback && sCallback();
+		article.articleid = articleid;
+		var article = toDbArticleInfo(article),
+			a = article.article,
+			ai = article.article_info;
+		dbConnection.query("update i_article set ? where articleid = "+articleid+"",a,function(err,result){
+			if(err){
+				throw err,
+				fCallback && fCallback();
+			}else{
+				dbConnection.query("update i_article_info set ? where articleid = "+articleid+"",ai,function(err,result){
+					if(err){
+						throw err;
+						fCallback && fCallback();
+					}else{
+						sCallback && sCallback(result);
+					}
+				});	
+			}			
+		});	
 	};
 };
 

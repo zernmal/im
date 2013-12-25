@@ -25,63 +25,68 @@
 		</div>
 		<div class="col-md-9 im-main" role="main">
 		  <div class="bs-docs-section">
-			<form action="/admin/article/create" method="post">
+			<form action="/admin/article/update?articleid=<%= article.articleid %>" method="post">
+				<input type="hidden" name="article[userid]" value="<%= article.userid %>">
 				<div class="form-group">
 				  <label for="">所属栏目</label>
 				  <select id="categories" class="form-control" name="article[categoryid]">
 					<% for( var i in categories) {%>
-					<option data-pid="<%= categories[i].pid %>" value="<%= categories[i].categoryid %>"><%= categories[i].name %></option>
+					<option data-pid="<%= categories[i].pid %>"  <% if(article.categoryid==categories[i].categoryid){ %>selected="selected"<% } %> value="<%= categories[i].categoryid %>"><%= categories[i].name %></option>
 					<% } %>
 				  </select>
 				</div>
 				<div class="form-group">
 					<label for="">文章标题</label>
-					<input type="text" class="form-control" name="article[title]">
+					<input type="text" class="form-control" value="<%= article.title %>" name="article[title]">
 				</div>	
 				<div class="form-group">
 					<label for="">标题图片</label>
 				  	<input type="file" name="article[picfile]" id="">
 				</div>			
 				<div class="form-group">
+					<label for="">发布时间</label>
+					<input type="text" class="form-control"  value="<%= article.time %>" name="article[time]">
+				</div>	
+				<div class="form-group">
 					<label for="">关键字</label>
-					<input type="text" class="form-control" name="article[keyword]">
+					<input type="text" class="form-control"  value="<%= article.keyword %>" name="article[keyword]">
 				</div>		
 				<div class="form-group">
 					<label for="">简介</label>
-					<input type="text" class="form-control" name="article[description]">
+					<input type="text" class="form-control"  value="<%= article.description %>" name="article[description]">
 				</div>	
 				<div class="form-group">
 					<label for="">作者</label>
-					<input type="text" class="form-control" name="article[writer]">
+					<input type="text" class="form-control"  value="<%= article.writer %>" name="article[writer]">
 				</div>	
 				<div class="form-group">
 					<label for="">来源</label>
-					<input type="text" class="form-control" name="article[from]">
+					<input type="text" class="form-control"  value="<%= article.from %>" name="article[from]">
 				</div>			
 				<div class="form-group">
 					<label for="">是否推荐</label>                  
 					<div class="radio">
-						<label><input type="radio" name="article[isrecommend]"  id="" value="1" >是</label>
+						<label><input type="radio" name="article[isrecommend]" <% if(article.isrecommend==1){ %>checked<% } %>  id="" value="1" >是</label>
 					</div>
 					<div class="radio">
-						<label><input type="radio" name="article[isrecommend]"  id="" value="0" checked>否</label>
+						<label><input type="radio" name="article[isrecommend]" <% if(article.isrecommend==0){ %>checked<% } %>  id="" value="0" >否</label>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="">是否置顶</label>                  
 					<div class="radio">
-						<label><input type="radio" name="article[istop]"  id="" value="1" >是</label>
+						<label><input type="radio" name="article[istop]" <% if(article.istop==1){ %>checked<% } %>  id="" value="1" >是</label>
 					</div>
 					<div class="radio">
-						<label><input type="radio" name="article[istop]"  id="" value="0" checked>否</label>
+						<label><input type="radio" name="article[istop]" <% if(article.istop==0){ %>checked<% } %> id="" value="0" checked>否</label>
 					</div>
 				</div>
 				<div class="form-group">
 				  <label for="">栏目内容</label>
-				  <textarea class="form-control" name="article[content]" rows="13"></textarea>
+				  <textarea class="form-control" name="article[content]" rows="13"><%= article.content %></textarea>
 				</div>
 				<div class="btn-group">
-					<input class="btn btn-default btn-lg" type="submit" value="发布" />
+					<input class="btn btn-default btn-lg" type="submit" value="提交修改" />
 				</div>	
 			</form>
 		  </div>

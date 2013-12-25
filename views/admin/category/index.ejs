@@ -41,7 +41,10 @@
 		  				<td class="name"><%= categories[i].name %></td>
 		  				<td><%= categories[i].typeid %></td>
 		  				<td><%= categories[i].isindex %></td>
-		  				<td></td>
+		  				<td>
+		  					<a href="/admin/category/edit?categoryid=<%= categories[i].categoryid %>">编辑</a> &nbsp;|&nbsp;
+		  					<a href="/admin/category/destroy?categoryid=<%= categories[i].categoryid %>" onclick="return confirm('确认删除该栏目？')">删除</a>
+		  				</td>
 		  			</tr>
 		  			<% } %>
 		  		</tbody>

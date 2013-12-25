@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2013 年 12 月 24 日 17:03
+-- 生成日期: 2013 年 12 月 25 日 07:38
 -- 服务器版本: 5.5.20
 -- PHP 版本: 5.3.10
 
@@ -45,16 +45,20 @@ CREATE TABLE IF NOT EXISTS `i_article` (
   `isdeleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`articleid`),
   KEY `categoryid` (`categoryid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- 转存表中的数据 `i_article`
 --
 
 INSERT INTO `i_article` (`articleid`, `categoryid`, `title`, `pic`, `keyword`, `description`, `time`, `commentnum`, `isrecommend`, `istop`, `attachmentnum`, `userid`, `writer`, `from`, `click`, `isdeleted`) VALUES
-(1, 1, '木木s木木木木幽幽幽幽幽幽幽幽幽幽幽幽幽幽', '', '奎土土ffd', '土土土', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '木木木木木木', '月月月月月月月', 0, 0),
+(1, 6, '木木s木木木木幽幽幽幽幽幽幽幽幽幽幽幽幽幽', '', '奎土土ffd', '土土土', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '木木木木木木', '月月月月月月月', 0, 0),
 (2, 1, '木木s', '', '奎土土ffd', '土土土', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '木木木木木木', '月月月月月月月', 0, 0),
-(3, 5, 'dasfdfffffffffffff', '', '幽幽幽幽幽幽幽幽幽幽幽幽白白白白白白', '已已已', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '已已已已已', '已已', 0, 1);
+(3, 5, 'dasfdfffffffffffff', '', '幽幽幽幽幽幽幽幽幽幽幽幽白白白白白白', '已已已', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '已已已已已', '已已', 0, 1),
+(4, 1, 'ffffffffff', '', 'sssssssss', 'aaaaaaaa', '2013-12-25 10:10:56', 0, 0, 1, 0, 0, 'dddddw', 'wwwwwwwwwwwwwr', 0, 0),
+(5, 5, 'llllllllllllllllllllllllluuuuuuu', '', 'uuuuuuuuuuuuu', 'uttttttttttttttt', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, 'yy', 'y777777777777', 0, 0),
+(6, 5, 'eeeeeeeeeeeee', '', 'e222222222hhhhhhhhhhhhhhtttttt', '224444444444', '2013-12-25 10:11:56', 0, 1, 0, 0, 0, '443', 'hhhhhhhh', 0, 0),
+(7, 1, '木木s木木木木ssaa幽w2222', '', '奎土土ffd', '土土土', '0000-00-00 00:00:00', 0, 1, 0, 0, 0, '木木木木木木', '月月月月ss', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -111,7 +115,11 @@ CREATE TABLE IF NOT EXISTS `i_article_info` (
 INSERT INTO `i_article_info` (`articleid`, `content`) VALUES
 (1, '众人众人众人众人众人众人众人众人众人众人众人众人众人众人众人众人'),
 (2, '众人众人众人众人众人众人众人众人众人众人众人众人众人众人众人众人'),
-(3, '之之之之之之之初痒痒痒痒痒痒');
+(3, '之之之之之之之初痒痒痒痒痒痒'),
+(4, 'rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr\r\ndsadasd'),
+(5, 'r53245234654654'),
+(6, 'ffffffffffffffffffffffffbnbbbbbbcvvvvvvvvvvvvvvvvv'),
+(7, '众人众人wwwwwwwwwwwwww1dddddddddddd众人众人众人');
 
 -- --------------------------------------------------------
 
@@ -177,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `s_category` (
   `gourl` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`categoryid`),
   UNIQUE KEY `category` (`categoryid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- 转存表中的数据 `s_category`
@@ -189,7 +197,8 @@ INSERT INTO `s_category` (`categoryid`, `name`, `typeid`, `pic`, `keyword`, `des
 (4, '测试栏目', 1, '', 'd测试栏目', '', 0, 'aaaaaaaaa', ''),
 (5, 'fsdafasdf', 1, '', 'd', 'aaaaaaa', 3, 'afffffffff', ''),
 (6, '测试测试测试', 1, '', '测试测试', '', 5, '', ''),
-(7, '测大大大dd', 1, '', '测大大大dd', '测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd', 5, '', '');
+(7, '测大大大dd', 1, '', '测大大大dd', '测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd', 5, '', ''),
+(8, '', 1, '', '', '', 5, '', '');
 
 -- --------------------------------------------------------
 
@@ -214,7 +223,8 @@ INSERT INTO `s_category_info` (`categoryid`, `content`) VALUES
 (4, 'fdsc测试栏目测试栏目测试栏目测试栏目\r\n测试栏目测试栏目测试栏目'),
 (5, 'sdafsdfasdf\r\nasdf\r\nas\r\ndfasdf'),
 (6, '测试测试测试\r\n测试测试测试测试测试\r\n测试\r\n测试\r\n测试测试测试'),
-(7, '测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd');
+(7, '测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd'),
+(8, '');
 
 -- --------------------------------------------------------
 
@@ -246,7 +256,8 @@ INSERT INTO `s_category_setting` (`categoryid`, `isindex`, `mshow`, `infonum`, `
 (4, 3, 1, 1, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0),
 (5, 3, 1, 25, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0),
 (6, 3, 1, 25, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0),
-(7, 3, 1, 25, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0);
+(7, 3, 1, 25, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0),
+(8, 3, 1, 25, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0);
 
 -- --------------------------------------------------------
 

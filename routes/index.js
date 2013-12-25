@@ -55,6 +55,22 @@ module.exports = function(app) {
 		getActionFile('admin/category').create(req,res);	
 	});
 
+	//后台edit栏目
+	app.get('/admin/category/edit',function(req,res){
+		getActionFile('admin/category').edit(req,res);	
+	});
+
+	//后台update栏目
+	app.post('/admin/category/update',function(req,res){
+		getActionFile('admin/category').update(req,res);	
+	});
+
+	//后台destroy栏目
+	app.get('/admin/category/destroy',function(req,res){
+		getActionFile('admin/category').destroy(req,res);	
+	});
+
+
 	//后台 article列表
 	app.get('/admin/article/index',function(req,res){
 		getActionFile('admin/article').index(req,res);	
