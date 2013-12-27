@@ -124,8 +124,9 @@ var Article = function(){
 						throw err;
 						fCallback && fCallback();
 					}else{
-
-						var targetDir = './public/article/' + ai.articleid + "." + picfile.name.split(".").pop(); 
+						var date = new Date(),
+							dateDir = date.getFullYear()+"-"+date.getMonth(),
+							targetDir = './public/upload/article/'+ dateDir + '/' + ai.articleid + "." + picfile.name.split(".").pop(); 
 						console.log(targetDir);
 						var desC = extend(a,ai);
 						sCallback && sCallback(desC);
@@ -148,7 +149,8 @@ var Article = function(){
 
 	_that.update = function(articleid,article,sCallback,fCallback){
 		article.articleid = articleid;
-		var article = toDbArticleInfo(article),
+		var picfile = article.picfile,
+			article = toDbArticleInfo(article),
 			a = article.article,
 			ai = article.article_info;
 		dbConnection.query("update i_article set ? where articleid = "+articleid+"",a,function(err,result){
@@ -161,6 +163,10 @@ var Article = function(){
 						throw err;
 						fCallback && fCallback();
 					}else{
+						var date = new Date(),
+							dateDir = date.getFullYear()+"-"+date.getMonth(),
+							targetDir = './public/upload/article/'+ dateDir + '/' + ai.articleid + "." + picfile.name.split(".").pop(); 
+						console.log(targetDir);
 						sCallback && sCallback(result);
 					}
 				});	
