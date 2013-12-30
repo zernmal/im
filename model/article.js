@@ -153,6 +153,38 @@ var Article = function(){
 			article = toDbArticleInfo(article),
 			a = article.article,
 			ai = article.article_info;
+
+
+		var date = new Date(),
+			tmp_path = picfile.path,
+			dateDir = date.getFullYear()+"-"+date.getMonth(),
+			targetDir = '../public/uploads/article/'+ dateDir ,
+			target_path = targetDir + "/" + ai.articleid + "." + picfile.name.split(".").pop(),
+			moveFile = function(){
+				fs.rename(tmp_path, target_path, function(err) {
+					if (err) throw err;
+					// 删除临时文件夹文件, 
+					/*fs.unlink(tmp_path, function() {
+					 	if (err) throw err;					 	
+					});*/
+				});
+			}; 
+		
+
+		fs.exists(targetDir,function(exists){
+			if(exists){
+				moveFile();
+			}else{
+				console.log(targetDir);
+				fs.mkdir(targetDir,function(err){
+					if(err) throw err;
+					else moveFile();
+				});
+			}
+		});
+
+
+
 		dbConnection.query("update i_article set ? where articleid = "+articleid+"",a,function(err,result){
 			if(err){
 				throw err,
@@ -163,10 +195,7 @@ var Article = function(){
 						throw err;
 						fCallback && fCallback();
 					}else{
-						var date = new Date(),
-							dateDir = date.getFullYear()+"-"+date.getMonth(),
-							targetDir = './public/upload/article/'+ dateDir + '/' + ai.articleid + "." + picfile.name.split(".").pop(); 
-						console.log(targetDir);
+						
 						sCallback && sCallback(result);
 					}
 				});	

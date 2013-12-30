@@ -31,7 +31,9 @@ module.exports.update = function(req,res){
 	if(!articleid){
 		res.render("notic",{msg:'请传入文章id',gourl:"/admin/article/index"});
 	}else{
-		articleModel.update(articleid,req.body.article,function(){
+		article = req.body.article;
+		article.picfile = req.files.picfile;
+		articleModel.update(articleid,article,function(){
 			res.render("notic",{msg:'编辑信息成功',gourl:"/admin/article/index"});
 		});
 	}
