@@ -28,8 +28,8 @@
 		  		<thead>
 		  			<tr>
 		  				<td>文章ID</td>
+		  				<td>标题图片</td>
 		  				<td>文章标题</td>
-		  				<td></td>
 		  				<td></td>
 		  				<td>操作</td>
 		  			</tr>
@@ -38,8 +38,8 @@
 		  			<% for( var i in articles) {%>				    
 		  			<tr data-categoryid="<%= articles[i].articleid %>" >
 		  				<td><%= articles[i].articleid %></td>
+		  				<td><% if(articles[i].pic){ %> <img src="<%= articles[i].pic %>" width="30" height="30" <% } %></td>
 		  				<td><%= articles[i].title %></td>
-		  				<td></td>
 		  				<td></td>
 		  				<td>
 		  					<a href="/admin/article/edit?articleid=<%= articles[i].articleid %>">编辑</a> &nbsp;|&nbsp;

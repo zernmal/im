@@ -18,7 +18,9 @@ module.exports.add = function(req,res){
 };
 
 module.exports.create = function(req,res){
-	categoryModel.create(req.body.category,function(){
+	var category = req.body.category;
+	category.picfile = req.files.picfile;
+	categoryModel.create(category,function(){
 		res.render("notic",{msg:'创建栏目成功',gourl:"/admin/category/index"});
 	});
 };
@@ -29,7 +31,6 @@ module.exports.edit = function(req,res){
 	categoryModel.getAll({},function(categories,cfields){
 		typeModel.getAll(function(types,tfields){
 			categoryModel.get(categoryid,function(category,cfields){
-				console.log(category);
 				res.render("admin/category/edit",{title:'编辑栏目',categories:categories,types:types,category:category});
 			});			
 		});
@@ -38,8 +39,13 @@ module.exports.edit = function(req,res){
 
 
 module.exports.update = function(req,res){
-	var categoryid = req.query.categoryid;
-	categoryModel.update(categoryid,req.body.category,function(){
+	var categoryid = req.query.categoryid,
+		category = req.body.category;
+	category.picfile = req.files.picfile;
+
+	console.log(req.files);
+
+	categoryModel.update(categoryid,category,function(){
 		res.render("notic",{msg:'更新栏目成功',gourl:"/admin/category/index"});
 	});
 };

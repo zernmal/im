@@ -25,7 +25,7 @@
 		</div>
 		<div class="col-md-9 im-main" role="main">
 		  <div class="bs-docs-section">
-			  <form role="form" action="/admin/category/update?categoryid=<%= category.categoryid %>" method="post">
+			  <form role="form" action="/admin/category/update?categoryid=<%= category.categoryid %>" enctype="multipart/form-data" method="post">
 				<div class="form-group">
 				  <label for="">所属频道</label>
 				  <select id="categorytype" class="form-control" name="category[typeid]">
@@ -36,7 +36,7 @@
 				</div>
 				<div class="form-group">
 				  <label for="">上级栏目</label>
-				  <select id="categories" class="form-control" name="category[pid]">
+				  <select id="categories" class="form-control"  name="category[pid]">
 					  <% for( var i in categories) {%>
 						<% if(category.categoryid!=categories[i].categoryid){ %>
 						<option <% if(category.pid==categories[i].categoryid){ %>selected="selected"<% } %> data-pid="<%= categories[i].pid %>" value="<%= categories[i].categoryid %>"><%= categories[i].name %></option>
@@ -50,7 +50,8 @@
 				</div>
 				<div class="form-group">
 				  <label for="item2">栏目图片</label>
-				  <input type="file" name="category[typepicfile]" id="item2">
+				  <input type="hidden" name="category[pic]" value="<%= category.pic %>" />
+				  <input type="file" name="picfile" id="item2" />
 				  <p class="help-block"></p>
 				</div>
 				<div class="form-group">

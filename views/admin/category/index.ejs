@@ -28,6 +28,7 @@
 		  		<thead>
 		  			<tr>
 		  				<td>栏目ID</td>
+		  				<td>栏目图片</td>
 		  				<td>栏目名</td>
 		  				<td>栏目类型</td>
 		  				<td>栏目显示模式</td>
@@ -38,6 +39,7 @@
 		  			<% for( var i in categories) {%>				    
 		  			<tr data-categoryid="<%= categories[i].categoryid %>" data-pid="<%= categories[i].pid %>">
 		  				<td><%= categories[i].categoryid %></td>
+		  				<td><% if(categories[i].pic){ %> <img src="<%= categories[i].pic %>" width="30" height="30"  alt="" /> <% } %></td>
 		  				<td class="name"><%= categories[i].name %></td>
 		  				<td><%= categories[i].typeid %></td>
 		  				<td><%= categories[i].isindex %></td>

@@ -25,7 +25,7 @@
 		</div>
 		<div class="col-md-9 im-main" role="main">
 		  <div class="bs-docs-section">
-			  <form role="form" action="/admin/category/create" method="post">
+			  <form role="form" action="/admin/category/create" enctype="multipart/form-data" method="post">
 				<div class="form-group">
 				  <label for="">所属频道</label>
 				  <select id="categorytype" class="form-control" name="category[typeid]">
@@ -48,7 +48,7 @@
 				</div>
 				<div class="form-group">
 				  <label for="item2">栏目图片</label>
-				  <input type="file" name="category[typepicfile]" id="item2">
+				  <input type="file" name="picfile" id="item2">
 				  <p class="help-block"></p>
 				</div>
 				<div class="form-group">

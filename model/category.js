@@ -1,5 +1,6 @@
 getLibFile("db");
 var extend = require("node.extend"),
+	fs = require("fs"),
 	mysql = require("mysql");
 var Category = function(){
 	var _that = this,
@@ -11,7 +12,7 @@ var Category = function(){
 						categoryid : c.categoryid || null,
 						name : c.name || "",
 						typeid : c.typeid || 1,
-						pic : c.pic || "",
+						pic : c.pic || "/public/uploads/default.jpg",
 						keyword : c.keyword || "",
 						description : c.description || "",
 						pid : c.pid || 0,
@@ -67,7 +68,6 @@ var Category = function(){
 					'left join s_category_info as ci on c.categoryid = ci.categoryid '+
 					'left join s_category_setting as cs on c.categoryid = cs.categoryid '+
 					'where c.categoryid = \''+categoryid+'\' limit 1';
-		console.log(sql);
 		dbConnection.query( sql , function(err, rows, fields) {
 			if (err) throw err;
 			callback && callback(rows[0],fields);
@@ -76,7 +76,8 @@ var Category = function(){
 					
 	};
 	_that.create = function(category,sCallback,fCallback){
-		var category = toDbCategoryInfo(category),
+		var  picfile = category.picfile,
+			category = toDbCategoryInfo(category),
 			c = category.category,
 			ci = category.category_info,
 			cs = category.s_category_setting;
@@ -97,8 +98,23 @@ var Category = function(){
 								throw err;
 								fCallback && fCallback();
 							}else{
-								var desC = extend(c,ci,cs);
-								sCallback && sCallback(desC);
+								
+								//上传栏目标题图片
+								if(picfile&&picfile.name){//如果有上传文件，则执行文件上传操作 
+									var target_path = "public/uploads/category/" + ci.categoryid + "." + picfile.name.split(".").pop();
+									
+									fs.rename(picfile.path, target_path, function(err) {
+										if (err) throw err;
+										dbConnection.query("update s_category set ? where categoryid = "+ci.categoryid+"",{pic:"/"+target_path},function(err,result){
+											//不管有没有移动成功，都执行回调		
+											var desC = extend(c,ci,cs);
+											sCallback && sCallback(desC);
+										});
+									});
+								}else{
+									var desC = extend(c,ci,cs);
+									sCallback && sCallback(desC);
+								}								
 							}
 						});//s_category_setting
 					}
@@ -108,7 +124,8 @@ var Category = function(){
 	};
 	_that.update = function(categoryid,category,sCallback,fCallback){
 		category.categoryid = categoryid;
-		var category = toDbCategoryInfo(category),
+		var picfile = category.picfile,
+			category = toDbCategoryInfo(category),
 			c = category.category,
 			ci = category.category_info,
 			cs = category.s_category_setting;
@@ -127,7 +144,21 @@ var Category = function(){
 								throw err;
 								fCallback && fCallback();
 							}else{
-								sCallback && sCallback(result);
+
+								//上传栏目标题图片
+								if(picfile&&picfile.name){//如果有上传文件，则执行文件上传操作 
+									var target_path = "public/uploads/category/" + categoryid + "." + picfile.name.split(".").pop();
+									
+									fs.rename(picfile.path, target_path, function(err) {
+										if (err) throw err;
+										dbConnection.query("update s_category set ? where categoryid = "+categoryid+"",{pic:"/"+target_path},function(err,result){
+											//不管有没有移动成功，都执行回调		
+											sCallback && sCallback();
+										});
+									});
+								}else{
+									sCallback && sCallback();
+								}
 							}
 						});	
 					}

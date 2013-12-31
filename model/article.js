@@ -13,10 +13,10 @@ var Article = function(){
 						articleid : a.articleid || null,
 						categoryid : a.categoryid || 0,
 						title : a.title || "",
-						pic : a.pic || "",
+						pic : a.pic || "/public/uploads/default.jpg",
 						keyword : a.keyword || "",
 						description : a.description || "",
-						time : a.time || getDatetime((new Date()).getTime()/1000),
+						time : a.time || getDatetime((new Date()).getTime()),
 						commentnum : a.commentnum || 0,
 						isrecommend : a.isrecommend || 0,
 						istop : a.istop || 0,
@@ -124,12 +124,40 @@ var Article = function(){
 						throw err;
 						fCallback && fCallback();
 					}else{
-						var date = new Date(),
-							dateDir = date.getFullYear()+"-"+date.getMonth(),
-							targetDir = './public/upload/article/'+ dateDir + '/' + ai.articleid + "." + picfile.name.split(".").pop(); 
-						console.log(targetDir);
-						var desC = extend(a,ai);
-						sCallback && sCallback(desC);
+						
+						if(picfile&&picfile.name){//如果有上传文件，则执行文件上传操作 
+							var date = new Date(),
+								tmp_path = picfile.path,
+								dateDir = date.getFullYear()+"-"+date.getMonth(),
+								targetDir = 'public/uploads/article/'+ dateDir ,//直接将网站目录
+								target_path = targetDir + "/" + ai.articleid + "." + picfile.name.split(".").pop(),
+								moveFile = function(){
+									fs.rename(tmp_path, target_path, function(err) {
+										if (err) throw err;
+										dbConnection.query("update i_article set ? where articleid = "+ai.articleid+"",{pic:"/"+target_path},function(err,result){
+											//不管有没有移动成功，都执行回调										
+											var desC = extend(a,ai);
+											sCallback && sCallback(desC);
+										});
+									});
+								}; 						
+
+							fs.exists(targetDir,function(exists){
+								if(exists){
+									moveFile();
+								}else{
+									fs.mkdir(targetDir,function(err){
+										if(err) throw err;
+										
+										//不管有没有创建文件夹成功都执行移动文件操作，因为在里面执行回调
+										moveFile();
+									});
+								}
+							});
+						}else{
+							var desC = extend(a,ai);
+							sCallback && sCallback(desC);
+						}
 					}
 				});//s_article_info
 			}
@@ -154,37 +182,6 @@ var Article = function(){
 			a = article.article,
 			ai = article.article_info;
 
-
-		var date = new Date(),
-			tmp_path = picfile.path,
-			dateDir = date.getFullYear()+"-"+date.getMonth(),
-			targetDir = '../public/uploads/article/'+ dateDir ,
-			target_path = targetDir + "/" + ai.articleid + "." + picfile.name.split(".").pop(),
-			moveFile = function(){
-				fs.rename(tmp_path, target_path, function(err) {
-					if (err) throw err;
-					// 删除临时文件夹文件, 
-					/*fs.unlink(tmp_path, function() {
-					 	if (err) throw err;					 	
-					});*/
-				});
-			}; 
-		
-
-		fs.exists(targetDir,function(exists){
-			if(exists){
-				moveFile();
-			}else{
-				console.log(targetDir);
-				fs.mkdir(targetDir,function(err){
-					if(err) throw err;
-					else moveFile();
-				});
-			}
-		});
-
-
-
 		dbConnection.query("update i_article set ? where articleid = "+articleid+"",a,function(err,result){
 			if(err){
 				throw err,
@@ -195,12 +192,41 @@ var Article = function(){
 						throw err;
 						fCallback && fCallback();
 					}else{
-						
-						sCallback && sCallback(result);
+						if(picfile&&picfile.name){//如果有上传文件，则执行文件上传操作
+							var date = new Date(),
+								tmp_path = picfile.path,
+								dateDir = date.getFullYear()+"-"+date.getMonth(),
+								targetDir = 'public/uploads/article/'+ dateDir ,//直接将网站目录
+								target_path = targetDir + "/" + ai.articleid + "." + picfile.name.split(".").pop(),
+								moveFile = function(){
+									fs.rename(tmp_path, target_path, function(err) {
+										if (err) throw err;
+										dbConnection.query("update i_article set ? where articleid = "+articleid+"",{pic:"/"+target_path},function(err,result){
+											//不管有没有移动成功，都 执行回调
+											sCallback && sCallback(result);
+										});
+									});
+								}; 						
+
+							fs.exists(targetDir,function(exists){
+								if(exists){
+									moveFile();
+								}else{
+									fs.mkdir(targetDir,function(err){
+										if(err) throw err;
+										
+										//不管有没有创建文件夹成功都执行移动文件操作，因为在里面执行回调
+										moveFile();
+									});
+								}
+							});
+						}else{
+							sCallback && sCallback(result);
+						}
 					}
-				});	
+				});// update ai end	
 			}			
-		});	
+		});	// update a end
 	};
 };
 
