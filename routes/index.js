@@ -106,6 +106,34 @@ module.exports = function(app) {
 		getActionFile('admin/system').index(req,res);	
 	});
 	
+	//前台文章内容页
+	app.get('/article/:id',function(req,res){
+		var idReg = /^\d+$/ ;
+		if(idReg.test(req.params["id"])){	
+			req.query.articleid = req.params["id"];
+			getActionFile('article').index(req,res);
+		}else{
+			res.send(404, 'Sorry, we cannot find that!');
+		}
+	})
+
+	//前台文章列表页
+	app.get('/article/list/:id',function(req,res){
+		var idReg = /^\d+(_\d+)?$/ ,
+			id = req.params['id'],
+			page = 1;
+		if(idReg.test(id)){
+			id = id.split("_");
+			if(id[1]){
+				page = id[1];
+			}
+			req.query.categoryid = id[0];
+			req.query.page = page;			
+			getActionFile('article').list(req,res);
+		}else{
+			res.send(404, 'Sorry, we cannot find that!');
+		}
+	})
 
 	//404页面处理
 	app.use(function (req, res) {
