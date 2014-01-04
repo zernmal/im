@@ -57,8 +57,16 @@ var Category = function(){
 		}
 
 		dbConnection.query( sql , function(err, rows, fields) {
-			if (err) throw err;
-			callback && callback(rows,fields);
+			if (err){
+				throw err;
+			}else{
+				var categories = {};
+				for(var i = 0 ; i < rows.length ; i++){
+					rows[i].url = categoryUrl(rows[i].categoryid);
+					categories[rows[i].categoryid] = rows[i];
+				}
+				callback && callback(categories,fields);
+			}			
 			//console.log(rows);
 		});
 	};
@@ -70,7 +78,10 @@ var Category = function(){
 					'where c.categoryid = \''+categoryid+'\' limit 1';
 		dbConnection.query( sql , function(err, rows, fields) {
 			if (err) throw err;
-			callback && callback(rows[0],fields);
+
+			var category = rows[0];
+			category.url = categoryUrl(category.categoryid);
+			callback && callback(category,fields);
 			//console.log(rows);
 		});	
 					

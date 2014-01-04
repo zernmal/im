@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>      
+        <meta charset="utf-8"/>
+        <meta name="author" content="im-corp.com">
+        <meta name="Copyright" content="">
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
+        <link rel="stylesheet" type="text/css" href="/public/skin/css/base.css">
+        <link rel="stylesheet" type="text/css" href="/public/skin/css/global.css">
+        <title>index of IM</title>
+        <!--[if lt IE 9]>
+             <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script> 
+        <![endif]-->
+    </head>
+        <body>
+        <div id="page">
+            <div id="header" class="clearfix">
+                <div class="headerwrap">
+                    <div class="logo clearfix">
+                        <img src="/public/skin/img/logo.jpg" alt="">
+                        <div class="subtext"><%= category.name %></div>
+                    </div>
+                    <div class="nav">
+                        <ul class="level1">
+							<% for( var i in nav) { %>	
+								<li><a href="<%= nav[i].url %>"><%= nav[i].name %></a></li>
+							<% } %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="main">
+                <div class="subpagerow clearfix">
+                    <div class="col1">
+                        <div class="box5">
+                            <div class="title">
+                                <a href="<%= lastCategories.topCategory.url %>"><%= lastCategories.topCategory.name %></a>
+                            </div>
+                            <ul>
+                                <% for( var i in lastCategories.subCategories) { %>    
+                                <li><a href="<%= lastCategories.subCategories[i].url %>"><%= lastCategories.subCategories[i].name %></a></li>
+                                <% } %>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col2">
+                        <div class="content">
+                            <h1><%= article.title %></h1>
+                            <p class="writer">
+                                <span>作者：<%= article.writer %></span>
+                                <span>来源：<%= article.from %></span>
+                            </p>
+                            <div class="detail">
+                            	<%= article.content %>
+                            </div>
+                            <div class="prenextpage">
+                                <span class="pre">
+                                    上一篇：<a href="<%= article.prev.url %>"><%= article.prev.title %></a>
+                                </span>
+                                <span class="next">
+                                    下一篇：<a href="<%= article.next.url %>"><%= article.next.title %></a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="footer">
+                <p>版本所有：www.im-corp.com &nbsp;&nbsp;&nbsp;&nbsp; powered by im studio</p>
+            </div>
+        </div>
+
+    </body>
+</html>

@@ -33,15 +33,56 @@ var Article = function(){
 					}
 				};
 			return article;
+		},
+		getSubStr = function(categoryid,callback){
+			categoryid = parseInt(categoryid);
+			dbConnection.query("select categoryid from s_category where pid = "+categoryid+" ",function(err,rows,fields){
+					var inC = [categoryid];
+					for(var i = 0 ; i < rows.length ; i++){
+						inC.push(rows[i].categoryid);
+					}
+					callback && callback(inC.join(","));							
+				});
 		};
 
 	_that.get = function(articleid,callback){//获取一篇文章的内容
-		var sql = 'select *, date_format(a.time,\'%Y-%m-%d %H:%i:%s\') as time from i_article as a ' +
+		var urlSql = articleUrl(0,{sql:true,tableName:"a"});
+		var sql = 'select *, date_format(a.time,\'%Y-%m-%d %H:%i:%s\') as time ,'+ urlSql +' from i_article as a ' +
 				'left join i_article_info as ai on a.articleid = ai.articleid ' +
 				'where a.articleid = \''+articleid+'\' limit 1';
 		dbConnection.query( sql , function(err, rows, fields) {
 			if (err) throw err;
-			callback && callback(rows[0],fields);
+			var article = rows[0];
+			getSubStr(article.categoryid,function(inC){
+				var nextSql = "select a.title,a.articleid,"+ urlSql +" from i_article as a where a.time > '"+article.time+"' and a.categoryid in("+inC+") order by a.articleid desc limit 1",
+					prevSql = "select a.title,a.articleid,"+ urlSql +" from i_article as a where a.time < '"+article.time+"' and a.categoryid in("+inC+") order by a.articleid desc  limit 1";
+
+				dbConnection.query(nextSql,function(err,next,nfields){
+					if(next&&next[0]){
+						article.next = next[0];
+					}else{
+						article.next = {
+								articleid : 0,
+								url : "javascript:",
+								title : "已经是最后一篇了"
+							};
+					}
+					dbConnection.query(prevSql,function(err,prev,pfields){					
+						if(prev&&prev[0]){
+							article.prev = prev[0];
+						}else{
+							article.prev = {
+									articleid : 0,
+									url : "javascript:",
+									title : "已经是第一篇了"
+								};
+						}
+						callback && callback(article,fields);					
+					});
+				});
+			});// inC end
+				
+			
 		});	
 	};
 	_that.getCustom = function(options,callback){//获取定制条数的信息，可用于分页是显示
@@ -49,6 +90,7 @@ var Article = function(){
 		var articleSql = '',
 			commentSql = '',
 			attachmentSql = '',
+			urlSql = articleUrl(0,{sql:true,tableName:"a"});
 			goArticleQuery = function(){
 				dbConnection.query( articleSql , function(err, rows, fields) {
 					if (err){
@@ -61,10 +103,10 @@ var Article = function(){
 			},
 			addLimit = function(){
 				if(options.add){//显示更多信息
-					articleSql = 'select *, date_format(a.time,\'%Y-%m-%d %H:%i:%s\') as time from i_article as a ' +
+					articleSql = 'select *, date_format(a.time,\'%Y-%m-%d %H:%i:%s\') as time ,'+urlSql+' from i_article as a ' +
 						'left join i_article_info as ai on a.articleid = ai.articleid ';
 				}else{//只显示基本状态信息
-					articleSql = 'select * from i_article as a ';
+					articleSql = 'select *, date_format(a.time,\'%Y-%m-%d %H:%i:%s\') as time ,'+urlSql+' from i_article as a ';
 				}
 				articleSql += 'where a.isdeleted = 0 ';
 
@@ -88,15 +130,10 @@ var Article = function(){
 			},
 			categoryLimit = function(){
 				if(options.categoryid){//获取该栏目下面的所有子栏目的文章列表				
-					dbConnection.query("select categoryid from s_category where pid = "+options.categoryid+" ",function(err,rows,fields){
-						var inC = [options.categoryid];
-						for(var i = 0 ; i < rows.length ; i++){
-							inC.push(rows[i].categoryid);
-						}
-						articleSql += ' and a.categoryid in('+inC.join(",")+') ';
+					getSubStr(options.categoryid,function(inC){
+						articleSql += ' and a.categoryid in('+inC+') ';
 						orderLimit();
-						
-					});				
+					})			
 				}else{					
 					orderLimit();
 				}
@@ -106,6 +143,13 @@ var Article = function(){
 		categoryLimit();		
 	};
 
+	_that.getPage = function(options,callback){
+		options = options || {};
+		var infonum = options.infonum || 25,
+			curPage = options.curPage || 0;
+
+
+	};
 	_that.create = function(article,sCallback,fCallback){
 
 		

@@ -1,10 +1,10 @@
 //选择完栏目类型后相应更改模板目录
 $("#categorytype").on("change",function(){
 	var type = $(this).find("option:selected").text();  
-	$("#listindext").val("templates/"+type+"/list_index.html");
-	$("#listt").val("templates/"+type+"/list.html");
-	$("#listbodyt").val("templates/"+type+"/list_body.html");
-	$("#listimaget").val("templates/"+type+"/list_image.html");
+	$("#listindext").val("templates/"+type+"/list_index");
+	$("#listt").val("templates/"+type+"/list");
+	$("#listbodyt").val("templates/"+type+"/list_body");
+	$("#listimaget").val("templates/"+type+"/list_image");
 });
 
 //栏目选项卡里面的栏目层级始化,在后台很多页面会用到

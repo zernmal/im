@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>      
+        <meta charset="utf-8"/>
+        <meta name="author" content="im-corp.com">
+        <meta name="Copyright" content="">
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
+        <link rel="stylesheet" type="text/css" href="/public/skin/css/base.css">
+        <link rel="stylesheet" type="text/css" href="/public/skin/css/global.css">
+        <title>index of IM</title>
+        <!--[if lt IE 9]>
+             <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script> 
+        <![endif]-->
+    </head>
+		<body>
+		<div id="page">
+			<div id="header" class="clearfix">
+				<div class="headerwrap">
+					<div class="logo clearfix">
+						<img src="/public/skin/img/logo.jpg" alt="">
+						<div class="subtext">广告点评</div>
+					</div>
+					<div class="nav">
+						<ul class="level1">
+							<% for( var i in nav) { %>	
+								<li><a href="<%= nav[i].url %>"><%= nav[i].name %></a></li>
+							<% } %>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="main">
+				<div class="subpagerow clearfix">
+					<div class="col1">
+						<div class="box5">
+							<div class="title">
+								<a href="<%= lastCategories.topCategory.url %>"><%= lastCategories.topCategory.name %></a>
+							</div>
+							<ul>
+								<% for( var i in lastCategories.subCategories) { %>	
+								<li><a href="<%= lastCategories.subCategories[i].url %>"><%= lastCategories.subCategories[i].name %></a></li>
+								<% } %>
+							</ul>
+						</div>
+					</div>
+					<div class="col2">
+						<div class="list">
+							<ul class="recommentlist clearfix">
+							<% for( var i in articles) {%>		
+								<li>
+									<div class="des">
+										<p class="tit"><a href="<%= articles[i].url %>" title="<%= articles[i].title %>"><%= articles[i].title %></a></p>
+										<p class="intro"><%= articles[i].description %></p>
+									</div>
+									<a href="#" title="<%= articles[i].title %>" class="titlepic">
+										<img src="<%= articles[i].pic %>" alt="<%= articles[i].title %>">
+									</a>
+								</li>
+				  			<% } %>
+							</ul>
+							<div class="pagelist">
+								<a href="">上一页</a>
+								<a href="">1</a>
+								<a href="" class="on">2</a>
+								<a href="">3</a>
+								<a href="">4</a>
+								<a href="">5</a>
+								<a href="">下一页</a>			
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="footer">
+				<p>版本所有：www.im-corp.com &nbsp;&nbsp;&nbsp;&nbsp; powered by im studio</p>
+			</div>
+		</div>
+
+	</body>
+</html>

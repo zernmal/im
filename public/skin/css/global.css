@@ -1,12 +1,12 @@
 #page {font-family: 'Microsoft Yahei', Arial, Helvetica, sans-serif, 宋体;}
-#header{width: 100%; border-bottom: 1px solid #cdcdcd;padding-bottom: 10px;}
+#header{width: 100%; border-bottom: 1px solid #cdcdcd;padding-bottom: 10px; background: #fff;z-index: 2;}
 #header .headerwrap{width: 900px;margin: 0 auto;}		
-.logo{width:280px;float:left;}
-.logo img{width:130px; float: left;}
-.logo .subtext{border-left: 2px solid #ccc; float: left;line-height: 80px;margin-left: 10px;padding-left: 5px;margin-top: 20px;font-size: 30px;font-weight: 700;}
+.logo{width:350px;float:left;}
+.logo img{width:130px;margin-top: 10px; float: left; height: 58px;}
+.logo .subtext{padding:0px;width: 200px;overflow: hidden;padding-left: 8px;  height: 40px; line-height: 40px; margin: 28px 0 0 10px; border-left: 2px solid #ccc; float: left;font-size: 30px;font-weight: 700;}
 
-.nav{ float: left;width:620px; }
-.nav .level1{margin-top: 55px;}
+.nav{ float: left;width:550px; }
+.nav .level1{margin-top: 39px;}
 .nav .level1 li{ float: left;list-style: none; }
 .nav .level1 li	a{background: #000000; color: #ffffff; font-size: 14px;font-weight:700; padding: 8px;margin:0 10px; }
 .nav .level1 li	a:hover{text-decoration: none;background: #000055;}
@@ -14,24 +14,23 @@
 
 #main {width: 900px;margin: 0 auto; margin-top: 20px;}
 .row{}
-.col1{width: 600px;float: left;}
-.col2{width:280px;float: right;}
-
+.row .col1{width: 600px;float: left;}
+.row .col2{width:280px;float: right;}
 .flashimg{width:600px; height:297px;overflow: hidden;}
 .flashimg ul{}
 .flashimg ul li{list-style: none;}
 .flashimg ul li img{width:600px;height:297px;}
-
 .box1{margin-top:20px;}
 .box1 .title{font-size: 25px;line-height: 45px;}
 .box1 .title .grey{float: right;color: #ccc;}
 .box1 .title h3 small{margin-left: 10px;font-size: 18px;}
 .box1 .more a{display: block;text-align: center;line-height: 35px;background: #595959;color: #fff;}
-.recommentlist li{clear:both; list-style: none;}
-.recommentlist li .titlepic{float: left; width: 152px;margin-bottom: 10px;}
+.recommentlist li{ list-style: none;position: relative;}
+.recommentlist li .titlepic{position: absolute;left: 0px;top: 0px;}
 .recommentlist li .titlepic img{width: 146px;height: 90px;padding: 2px;border: 1px solid #ccc;}
-.recommentlist li .des{float: right;width: 430px;margin-bottom: 10px;}
+.recommentlist li .des{padding-left: 156px;height: 103px;margin-bottom: 8px;border-bottom: 1px dashed #cdcdcd;}
 .recommentlist li .des .tit{line-height: 35px;height: 35px;overflow: hidden;font-size: 14px;font-weight: 600;}
+.recommentlist li .des .intro{line-height: 20px;height: 60px;overflow: hidden;}
 
 .box2 .title{}
 .box2 .title .wonderful{font-size: 25px;line-height: 45px; text-align: center;height: 45px;vertical-align: middle; }
@@ -39,7 +38,6 @@
 .wdflist{padding-top: 10px;}
 .wdflist li{list-style: inside;line-height: 30px; list-style-type:square; border-bottom:1px dashed #cdcdcd; }
 .wdflist li a{}
-
 .box3{margin-top: 20px;}
 .box3 .title{}
 .box3 .title .imnews{font-size: 25px;line-height: 45px; text-align: center;height: 45px;vertical-align: middle; }
@@ -47,30 +45,33 @@
 .imnewslist{padding-top: 10px;}
 .imnewslist li{list-style: inside;line-height: 30px; list-style-type:square; border-bottom:1px dashed #cdcdcd; }
 .imnewslist li a{}
-
 .box4 {margin-top: 20px; border: 1px dotted #cdcdcd;}
 .box4 .des{font-size: 14px; line-height: 35px; text-align: center;font-weight: 600;}
 .box4 .ecode{text-align: center; }
 .box4 .ecode img{width: 200px;padding: 10px;}
 
+.subpagerow{}
+.subpagerow .col1{width: 200px; float: left;}
+.subpagerow .col2{float: right;width: 680px;}
 
-.listwrap{}
-.listwrap .title{border-bottom: 1px dashed #CDCDCD;padding-bottom: 10px;margin-bottom: 15px;}
-.listwrap .title a{line-height: 25px; padding: 0 8px;  display:block;background: #cccccc; border: 1px solid #000055; height: 25px; float: left; margin-top: 10px;margin-right: 10px;}
-.listwrap .title a.topcat{line-height: 35px;height: 35px; margin-top: 0px; font-size: 14px;}
-.listwrap .title a.selected{color:#fff;background: #ff2244;}
-.listwrap .center{}
-.listwrap .pagelist{ text-align: center; margin-top: 15px;border-top: 1px dashed #cdcdcd;padding-top: 15px;}
-.listwrap .pagelist a{padding:2px 6px;margin-right: 4px; border: 1px solid #ccc;}
-.listwrap .pagelist a.selected{background: #ccc;}
+.box5{border: 1px solid #cdcdcd; border-radius: 5px; }
+.box5 .title a{display: block;font-size: 14px;padding:10px;background: #AA8;}
+.box5 .title a:hover{text-decoration: none;}
+.box5 li{list-style: none;}
+.box5 li a{background: #ccc;display: block;padding:10px; }
+.box5 li a:hover{background: #ddd;text-decoration: none;}
 
+.list{}
+.list li{}
+.list .pagelist{text-align: center;margin:25px 0 15px 0;}
+.list .pagelist a{display: inline-block; padding:4px 8px; border: 1px solid #cdcdcd;}
+.list .pagelist a.on{border: none;}
 
-.contentwrap{}
-.contentwrap h1{line-height: 40px;text-align: center;}
-.contentwrap .auth{text-align: center;padding: 5px;}
-.contentwrap .auth span{padding-right: 20px;}
-.contentwrap .contentdetail{margin-top: 5px;border-top: 1px dashed #cdcdcd;padding-top: 10px;}
-.contentpage{margin-top: 10px;border-top: 1px dashed #cdcdcd;padding-top: 10px;}
-.contentpage a{display: block;line-height: 30px;height: 30px;overflow: hidden;}
+.content h1{line-height: 30px;font-size: 18px; text-align: center;}
+.content .writer{text-align: center; color: #cdcdcd;margin: 5px 0 10px 0;}
+.content .detail{}
+.content .prenextpage{margin: 15px 0;border-top: 1px dashed #cdcdcd;padding-top: 10px;}
+.content .prenextpage span{display: block;line-height: 25px;}
+
 
 #footer {width: 100%; text-align: center;padding: 10px 0;margin-top: 20px;border-top: 1px solid #cdcdcd;}

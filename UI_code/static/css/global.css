@@ -1,11 +1,11 @@
 #page {font-family: 'Microsoft Yahei', Arial, Helvetica, sans-serif, 宋体;}
 #header{width: 100%; border-bottom: 1px solid #cdcdcd;padding-bottom: 10px; background: #fff;z-index: 2;}
 #header .headerwrap{width: 900px;margin: 0 auto;}		
-.logo{width:280px;float:left;}
-.logo img{width:130px;margin-top: 10px; float: left;}
-.logo .subtext{border-left: 2px solid #ccc; float: left;margin-left: 10px;line-height: 50px; padding-left: 5px;margin-top: 20px;font-size: 30px;font-weight: 700;}
+.logo{width:350px;float:left;}
+.logo img{width:130px;margin-top: 10px; float: left; height: 58px;}
+.logo .subtext{padding:0px;width: 200px;overflow: hidden;padding-left: 8px;  height: 40px; line-height: 40px; margin: 28px 0 0 10px; border-left: 2px solid #ccc; float: left;font-size: 30px;font-weight: 700;}
 
-.nav{ float: left;width:620px; }
+.nav{ float: left;width:550px; }
 .nav .level1{margin-top: 39px;}
 .nav .level1 li{ float: left;list-style: none; }
 .nav .level1 li	a{background: #000000; color: #ffffff; font-size: 14px;font-weight:700; padding: 8px;margin:0 10px; }

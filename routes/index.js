@@ -4,14 +4,31 @@
  */
 var fs = require('fs'),
 	thePath = require("path");
-	require(__dirname + "/../lib/functions");
+	require(__dirname + "/../lib/functions"),
+	Category = getModelFile("category"),
+	categoryModel = new Category();
 
  
 module.exports = function(app) {
 	
 	var go404 = function(rq,rs){
-		rs.send(404, 'Sorry, we cannot find that!');
-	};
+			rs.send(404, 'Sorry, we cannot find that!');
+		},
+		getNav = function(callback){
+			categoryModel.getAll({},function(categories,cfields){
+				var nav = {};
+				for(var i in categories){
+					if(categories[i].pid==0&&categories[i].mshow){
+						nav[i] = categories[i];
+					}
+				}
+				callback && callback(nav);
+			});
+		},
+		methods = {
+			go404 : go404,
+			getNav : getNav
+		};
 
 	//静态文件处理
 	app.get(/^\/(public\/.*)/i,function(req,res){
@@ -111,14 +128,14 @@ module.exports = function(app) {
 		var idReg = /^\d+$/ ;
 		if(idReg.test(req.params["id"])){	
 			req.query.articleid = req.params["id"];
-			getActionFile('article').index(req,res);
+			getActionFile('article').index(req,res,methods);
 		}else{
 			res.send(404, 'Sorry, we cannot find that!');
 		}
 	})
 
-	//前台文章列表页
-	app.get('/article/list/:id',function(req,res){
+	//前台栏目页
+	app.get('/category/:id',function(req,res){
 		var idReg = /^\d+(_\d+)?$/ ,
 			id = req.params['id'],
 			page = 1;
@@ -129,7 +146,7 @@ module.exports = function(app) {
 			}
 			req.query.categoryid = id[0];
 			req.query.page = page;			
-			getActionFile('article').list(req,res);
+			getActionFile('category').index(req,res,methods);
 		}else{
 			res.send(404, 'Sorry, we cannot find that!');
 		}
