@@ -99,9 +99,11 @@ module.exports = function(app) {
 
 	//进入后台前判断是否登录了，如果未登录直接跳到后台登录页面
 	app.get(/\/admin.*/,function(req,res){
-		console.log();
+		console.log(req.session.userid);
 		if(req.url!="/admin/loginp"){
-			res.render('admin/login', {title:"后台登录",redirect_url:"/admin"});
+			if(!req.session.userid){
+				res.render('admin/login', {title:"后台登录",redirect_url:"/admin"});
+			}
 		}
 	});	
 

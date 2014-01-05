@@ -32,6 +32,8 @@ if (cluster.isMaster) {
 	app.use(express.logger('dev'));
 	app.use(express.bodyParser({uploadDir:'./public/uploads/temp'}));
 	app.use(express.methodOverride());
+    app.use(express.cookieParser());
+    app.use(express.session({secret:'dianping'}));
 	app.use(app.router);
 	//app.use(express.static(path.join(__dirname, 'public')));
 
