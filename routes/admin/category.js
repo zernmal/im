@@ -54,5 +54,11 @@ module.exports.destroy = function(req,res){
 	var categoryid = req.query.categoryid;
 	categoryModel.destroy(categoryid,function(){
 		res.render("notic",{msg:'删除栏目成功',gourl:"/admin/category/index"});
+	},function(errNum){
+		if(errNum==1){
+			res.render("notic",{msg:'失败！请先删除或移动栏目下的文章',gourl:"/admin/category/index"});
+		}else{
+			res.render("notic",{msg:'删除栏目失败',gourl:"/admin/category/index"});
+		}
 	});
 };

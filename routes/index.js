@@ -2,24 +2,48 @@
 /*
  * GET home page.
  */
+
+require(__dirname + "/../lib/functions");
 var fs = require('fs'),
-	thePath = require("path");
-	require(__dirname + "/../lib/functions"),
+	Article = getModelFile("article"),
 	Category = getModelFile("category"),
+	articleModel = new Article(),
 	categoryModel = new Category();
+	thePath = require("path");
+
 
  
 module.exports = function(app) {
 	
+	//初始化模板方法
+	app.locals.getArticles = function(options,callback){
+		options = options || {};
+		var customOpt = {
+			categoryid : options.categoryid || 0 ,
+			infonum : options.infonum || 8 ,
+			isrecommend : options.isrecommend || false,
+			istop : options.istop || false,
+			orderby : options.orderby || {time:"desc"}
+		}; 
+		articleModel.getCustom(customOpt,function(articles,fields){
+			callback && callback(articles);
+		});		
+	}
+
+	//定义好一些公用方法 
 	var go404 = function(rq,rs){
 			rs.send(404, 'Sorry, we cannot find that!');
 		},
 		getNav = function(callback){
 			categoryModel.getAll({},function(categories,cfields){
-				var nav = {};
+				var nav = [{name:"首页",url:"/",categoryid:0}];
 				for(var i in categories){
 					if(categories[i].pid==0&&categories[i].mshow){
-						nav[i] = categories[i];
+						nav.push({
+							name : categories[i].name,
+							url : categories[i].url,
+							categoryid : categories[i].categoryid
+						});
 					}
 				}
 				callback && callback(nav);
@@ -44,12 +68,46 @@ module.exports = function(app) {
 
 	//首页
 	app.get('/',function(req,res){
-		res.render('../templates/index', { title: 'Express' }); 
+
+		getNav(function(nav){
+			categoryModel.getAll({},function(categories,cfields){				
+				var tData = { title: '壹圆广告点点评网',
+								categories : categories,
+								nav : nav,
+								category : {
+									categoryid : 0,
+									name : "首页",
+									url : "/"
+								}
+							};
+					
+				articleModel.getCustom({infonum:8},function(articles,fields){
+					tData.articles = articles;
+					res.render('../templates/index', tData);
+				});
+						
+			});
+		});	//get nav end
+		 
 	});
 
 		//首页
 	app.get('/article',function(req,res){		
 		getActionFile('article').index(req,res);	
+	});
+
+
+	//进入后台前判断是否登录了，如果未登录直接跳到后台登录页面
+	app.get(/\/admin.*/,function(req,res){
+		console.log();
+		if(req.url!="/admin/loginp"){
+			res.render('admin/login', {title:"后台登录",redirect_url:"/admin"});
+		}
+	});	
+
+	//后台登录处理
+	app.post('/admin/loginp',function(req,res){
+		getActionFile('admin').loginp(req,res);	
 	});
 
 	//后台首页
@@ -138,14 +196,14 @@ module.exports = function(app) {
 	app.get('/category/:id',function(req,res){
 		var idReg = /^\d+(_\d+)?$/ ,
 			id = req.params['id'],
-			page = 1;
+			curPage = 1;
 		if(idReg.test(id)){
 			id = id.split("_");
 			if(id[1]){
-				page = id[1];
+				curPage = id[1];
 			}
 			req.query.categoryid = id[0];
-			req.query.page = page;			
+			req.query.curPage = curPage;			
 			getActionFile('category').index(req,res,methods);
 		}else{
 			res.send(404, 'Sorry, we cannot find that!');

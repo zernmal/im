@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2013 年 12 月 31 日 14:15
+-- 生成日期: 2014 年 01 月 05 日 16:13
 -- 服务器版本: 5.5.20
 -- PHP 版本: 5.3.10
 
@@ -52,12 +52,9 @@ CREATE TABLE IF NOT EXISTS `i_article` (
 --
 
 INSERT INTO `i_article` (`articleid`, `categoryid`, `title`, `pic`, `keyword`, `description`, `time`, `commentnum`, `isrecommend`, `istop`, `attachmentnum`, `userid`, `writer`, `from`, `click`, `isdeleted`) VALUES
-(1, 6, '木木s木木木木幽幽幽幽幽幽幽幽幽幽幽幽幽幽', '/public/uploads/article/2013-11/1.jpg', '奎土土ffd', '土土土', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '木木木木木木', '月月月月月月月', 0, 0),
+(1, 9, '木木s木木木木幽幽幽幽幽幽幽幽幽幽幽幽幽幽', '/public/uploads/article/2013-11/1.jpg', '奎土土ffd', '土土土', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '木木木木木木', '月月月月月月月', 0, 0),
 (2, 1, '木木s', '/public/uploads/article/2013-11/2.jpg', '奎土土ffd', '土土土', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '木木木木木木', '月月月月月月月', 0, 0),
-(3, 5, 'dasfdfffffffffffff', '', '幽幽幽幽幽幽幽幽幽幽幽幽白白白白白白', '已已已', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '已已已已已', '已已', 0, 1),
 (4, 1, 'ffffffffff', '/public/uploads/article/2013-11/4.jpg', 'sssssssss', 'aaaaaaaa', '2013-12-25 10:10:56', 0, 0, 0, 0, 0, 'dddddw', 'wwwwwwwwwwwwwr', 0, 0),
-(5, 5, 'llllllllllllllllllllllllluuuuuuu', '/public/uploads/article/2013-11/5.jpg', 'uuuuuuuuuuuuu', 'uttttttttttttttt', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, 'yy', 'y777777777777', 0, 0),
-(6, 5, 'eeeeeeeeeeeee', '/public/uploads/article/2013-11/6.jpg', 'e222222222hhhhhhhhhhhhhhtttttt', '224444444444', '2013-12-25 10:11:56', 0, 1, 0, 0, 0, '443', 'hhhhhhhh', 0, 0),
 (7, 1, '木木s木木木木ssaa幽w2222', '/public/uploads/article/2013-11/7.jpg', '奎土土ffd', '土土土', '0000-00-00 00:00:00', 0, 1, 0, 0, 0, '木木木木木木', '月月月月ss', 0, 0),
 (8, 1, 'fdssdfdsf', '/public/uploads/article/2013-11/8.jpg', '', '', '1970-01-17 09:41:33', 0, 0, 0, 0, 0, 'fdssdfdsf', 'fdssdfdsf', 0, 0),
 (9, 1, 'sssssss', '/public/uploads/article/2013-11/9.jpg', 'err', '', '1970-01-17 09:41:33', 0, 0, 0, 0, 0, '', 'ddddddd', 0, 0),
@@ -203,15 +200,11 @@ CREATE TABLE IF NOT EXISTS `s_category` (
 
 INSERT INTO `s_category` (`categoryid`, `name`, `typeid`, `pic`, `keyword`, `description`, `pid`, `staticpath`, `gourl`) VALUES
 (1, 'IM动态', 1, '/public/uploads/default.jpg', 'IM动态', '', 0, 'null', 'null'),
-(3, 'ddddddddddfasdfasdf', 1, '/public/uploads/category/3.jpg', 'sssssss', '', 1, 'fff', 'ddddddd'),
+(3, '呼哈呼哈', 1, '/public/uploads/category/3.jpg', 'sssssss', '', 0, 'fff', 'ddddddd'),
 (4, '测试栏目', 1, '/public/uploads/default.jpg', 'd测试栏目', '', 1, 'aaaaaaaaa', ''),
-(5, 'fsdafasdf', 1, '/public/uploads/default.jpg', 'd', '', 3, 'afffffffff', ''),
-(6, '测试测试测试', 1, '/public/uploads/default.jpg', '测试测试', '', 5, '', ''),
-(7, '测大大大dd', 1, '/public/uploads/default.jpg', '测大大大dd', '', 5, '', ''),
-(8, 'ffffffff', 1, '/public/uploads/category/8.jpg', '', '', 5, '', ''),
-(9, 'dddddddddddd', 1, '/public/uploads/category/9.jpg', 'ssssssssssssssse', 'rr', 1, 'd', 'rr'),
-(10, 'dddddddd', 1, '/public/uploads/category/10.jpg', '', '', 5, '', ''),
-(11, '33333444444444444', 1, '/public/uploads/category/11.jpg', '', '', 1, '', '');
+(9, 'dddddddddddd', 1, '/public/uploads/category/9.jpg', 'ssssssssssssssse', '', 0, 'd', 'rr'),
+(10, 'dddddddd', 1, '/public/uploads/category/10.jpg', '', '', 0, '', ''),
+(11, '333334', 1, '/public/uploads/category/11.jpg', '', '', 1, '', '');
 
 -- --------------------------------------------------------
 
@@ -234,10 +227,6 @@ INSERT INTO `s_category_info` (`categoryid`, `content`) VALUES
 (1, 'IM动态'),
 (3, 'aaaaa'),
 (4, 'fdsc测试栏目测试栏目测试栏目测试栏目\r\n测试栏目测试栏目测试栏目'),
-(5, 'sdafsdfasdf\r\nasdf\r\nas\r\ndfasdf'),
-(6, '测试测试测试\r\n测试测试测试测试测试\r\n测试\r\n测试\r\n测试测试测试'),
-(7, '测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd测大大大dd'),
-(8, ''),
 (9, 'sssssssssss\r\nfasd\r\nf\r\nasdfasdf'),
 (10, 'ddddddddddddddddd'),
 (11, '444444444444');
@@ -267,16 +256,12 @@ CREATE TABLE IF NOT EXISTS `s_category_setting` (
 --
 
 INSERT INTO `s_category_setting` (`categoryid`, `isindex`, `mshow`, `infonum`, `t_index`, `t_list`, `t_listb`, `t_listimg`, `t_content`, `t_all`) VALUES
-(1, 3, 1, 25, ' 	templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0),
-(3, 3, 1, 23, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0),
-(4, 3, 1, 1, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0),
-(5, 3, 1, 25, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0),
-(6, 3, 1, 25, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0),
-(7, 3, 1, 25, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0),
-(8, 3, 1, 25, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0),
-(9, 3, 1, 25, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0),
-(10, 3, 1, 25, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0),
-(11, 3, 1, 25, 'templates/article/list_index.html', 'templates/article/list.html', 'templates/article/list_body.html', 'templates/article/list_image.html', '', 0);
+(1, 1, 1, 2, 'templates/article/list_index', 'templates/article/list', 'templates/article/list_body', 'templates/article/list_image', '', 0),
+(3, 3, 1, 23, 'templates/article/list_index', 'templates/article/list', 'templates/article/list_body', 'templates/article/list_image', '', 0),
+(4, 3, 1, 1, 'templates/article/list_index', 'templates/article/list', 'templates/article/list_body', 'templates/article/list_image', '', 0),
+(9, 3, 1, 25, 'templates/article/list_index', 'templates/article/list', 'templates/article/list_body', 'templates/article/list_image', '', 0),
+(10, 3, 1, 25, 'templates/article/list_index', 'templates/article/list', 'templates/article/list_body', 'templates/article/list_image', '', 0),
+(11, 3, 1, 25, 'templates/article/list_index', 'templates/article/list', 'templates/article/list_body', 'templates/article/list_image', '', 0);
 
 -- --------------------------------------------------------
 

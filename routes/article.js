@@ -9,14 +9,18 @@ module.exports.index = function(req, res, methods){
 	methods.getNav(function(nav){
 		categoryModel.getAll({},function(categories,cfields){
 			articleModel.get(req.query.articleid,function(article,afields){
-				var tData = {
-						title : article.title,
-						lastCategories:getLastCategories(categories,article.categoryid),
-						nav : nav,
-						article : article,
-						category : categories[article.categoryid]
-					};
-				res.render('../templates/article/article', tData);
+				if(!article){
+					methods.go404(req,res);
+				}else{
+					var tData = {
+							title : article.title,
+							lastCategories:getLastCategories(categories,article.categoryid),
+							nav : nav,
+							article : article,
+							category : categories[article.categoryid]
+						};
+					res.render('../templates/article/article', tData);
+				}
 			});
 		});
 	});

@@ -1,0 +1,15 @@
+<div id="header" class="clearfix">
+	<div class="headerwrap">
+		<div class="logo clearfix">
+			<img src="/public/skin/img/logo.jpg" alt="">
+			<div class="subtext"><%= category.name %></div>
+		</div>
+		<div class="nav">
+			<ul class="level1">
+				<% for( var i in nav) { %>	
+					<li><a href="<%= nav[i].url %>"><%= nav[i].name %></a></li>
+				<% } %>
+			</ul>
+		</div>
+	</div>
+</div>		

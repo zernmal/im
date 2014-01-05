@@ -7,28 +7,14 @@
         <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
         <link rel="stylesheet" type="text/css" href="/public/skin/css/base.css">
         <link rel="stylesheet" type="text/css" href="/public/skin/css/global.css">
-        <title>index of IM</title>
+        <title><%= title %></title>
         <!--[if lt IE 9]>
              <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script> 
         <![endif]-->
     </head>
-		<body>
-		<div id="page">
-			<div id="header" class="clearfix">
-				<div class="headerwrap">
-					<div class="logo clearfix">
-						<img src="/public/skin/img/logo.jpg" alt="">
-						<div class="subtext">广告点评</div>
-					</div>
-					<div class="nav">
-						<ul class="level1">
-							<% for( var i in nav) { %>	
-								<li><a href="<%= nav[i].url %>"><%= nav[i].name %></a></li>
-							<% } %>
-						</ul>
-					</div>
-				</div>
-			</div>
+	<body>
+		<div id="page">			
+			<%- include ../_header %>
 			<div id="main">
 				<div class="subpagerow clearfix">
 					<div class="col1">
@@ -59,13 +45,11 @@
 				  			<% } %>
 							</ul>
 							<div class="pagelist">
-								<a href="">上一页</a>
-								<a href="">1</a>
-								<a href="" class="on">2</a>
-								<a href="">3</a>
-								<a href="">4</a>
-								<a href="">5</a>
-								<a href="">下一页</a>			
+								<a href="<%= page.prev %>" <% if(page.prev==""){ %> onclick="alert('已经是第一页了');return false;" <%} %> >上一页</a>
+								<% for( var i in page.list) {%>	
+									<a href="<%= page.list[i].url %>" <% if(page.list[i].num==page.cur){ %> class="on" <%} %> ><%= page.list[i].num %></a>
+								<% } %>
+								<a href="<%= page.next %>" <% if(page.next==""){ %> onclick="alert('已经是最后一页了');return false;" <%} %>>下一页</a>			
 							</div>
 						</div>
 					</div>
@@ -75,6 +59,5 @@
 				<p>版本所有：www.im-corp.com &nbsp;&nbsp;&nbsp;&nbsp; powered by im studio</p>
 			</div>
 		</div>
-
 	</body>
 </html>

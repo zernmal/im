@@ -5,10 +5,11 @@ var Article = getModelFile("article"),
  	
 module.exports.index = function(req, res ,methods){
 	var categoryid = req.query.categoryid,
-		page = req.query.page,
+		curPage = req.query.curPage,
 		category = null,
-		options = {orderby:{time:"desc"},categoryid:categoryid,page:page};
+		options = {orderby:{time:"desc"},categoryid:categoryid,curPage:curPage};
 
+	
 	methods.getNav(function(nav){
 		categoryModel.getAll({},function(categories,cfields){
 			category = categories[categoryid];
@@ -16,9 +17,8 @@ module.exports.index = function(req, res ,methods){
 				methods.go404(req,res);
 				return;
 			}
-			var tData = { title: '文章列表',
+			var tData = { title: category.name,
 							lastCategories:getLastCategories(categories,categoryid),
-							page : page,
 							category : category,
 							nav : nav
 						};
@@ -26,11 +26,14 @@ module.exports.index = function(req, res ,methods){
 				options.infonum = category.infonum;
 				articleModel.getCustom(options,function(articles,fields){
 					tData.articles = articles;
-					if(category.isindex==1){
-						res.render('../'+category.t_list, tData);
-					}else{
-						res.render('../'+category.t_listimg, tData);
-					}
+					articleModel.getPage({categoryid:1,infonum:category.infonum,cur:curPage},function(page){
+						tData.page = page;
+						if(category.isindex==1){
+							res.render('../'+category.t_list, tData);
+						}else{
+							res.render('../'+category.t_listimg, tData);
+						}
+					});
 				});
 			}else if(category.isindex==3){//栏目介绍
 				res.render('../'+category.t_listb, tData);
@@ -39,5 +42,6 @@ module.exports.index = function(req, res ,methods){
 			}			
 		});
 	});	//get nav end
+
 };
 

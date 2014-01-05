@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">  
+		<title><%= title %></title>
+
+		<!-- Bootstrap core CSS -->
+	<link rel='stylesheet' href='/public/plugin/bootstrap/css/bootstrap.min.css' />
+	<link rel='stylesheet' href='/public/css/admin.css' />
+		<!--[if lt IE 9]>
+			<script src="/public/plugin/html5shiv/html5shiv.min.js"></script>
+			<script src="/public/plugin/respond/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="loginform">
+			<form role="form" action="/admin/loginp" method="post">
+			  <div class="form-group">
+			    <label for="exampleInputEmail1">Email address</label>
+			    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" />
+			  </div>
+			  <div class="form-group">
+			    <label for="exampleInputPassword1">Password</label>
+			    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+			  </div>
+			  <input type="hidden" name="redirect_url" value="<%= redirect_url %>" />
+			  <input type="submit" value="Login" class="btn btn-default" />
+			</form>		
+		</div>
+		<script src="/public/plugin/jquery/jquery.1.10.2.min.js"></script>
+		<script src="/public/plugin/bootstrap/js/bootstrap.min.js"></script>
+		<script src="/public/js/admin.js"></script>
+	</body>
+</html>
