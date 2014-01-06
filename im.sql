@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2014 年 01 月 05 日 16:13
+-- 生成日期: 2014 年 01 月 06 日 13:18
 -- 服务器版本: 5.5.20
 -- PHP 版本: 5.3.10
 
@@ -138,13 +138,21 @@ CREATE TABLE IF NOT EXISTS `i_user` (
   `userid` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(100) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
+  `password` varchar(100) NOT NULL,
   `avatar` varchar(100) DEFAULT NULL,
   `birthyear` int(11) DEFAULT NULL,
   `birthmonth` int(11) DEFAULT NULL,
   `birthday` int(11) DEFAULT NULL,
   PRIMARY KEY (`userid`),
   KEY `user` (`userid`,`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `i_user`
+--
+
+INSERT INTO `i_user` (`userid`, `username`, `email`, `password`, `avatar`, `birthyear`, `birthmonth`, `birthday`) VALUES
+(1, 'zernmal', 'zernmal@foxmail.com', '123456', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -172,7 +180,14 @@ CREATE TABLE IF NOT EXISTS `s_admin` (
   `userid` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `admin` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `s_admin`
+--
+
+INSERT INTO `s_admin` (`id`, `userid`) VALUES
+(1, 1);
 
 -- --------------------------------------------------------
 

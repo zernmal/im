@@ -10,6 +10,34 @@ var path = require('path');
 var cluster = require('cluster');
 var numCPUs = require('os').cpus().length;
 
+
+var app = express();
+
+	// all environments
+	app.set('port', process.env.PORT || 3000);
+	app.set('views', path.join(__dirname, 'views'));
+	app.set('view engine', 'ejs');
+	app.use(express.favicon());
+	app.use(express.logger('dev'));
+	app.use(express.bodyParser({uploadDir:'./public/uploads/temp'}));
+	app.use(express.methodOverride());
+	app.use(express.cookieParser());
+	app.use(express.session({secret:"dianping"}));
+	app.use(app.router);
+	//app.use(express.static(path.join(__dirname, 'public')));
+
+	// development only
+	if ('development' == app.get('env')) {
+	  app.use(express.errorHandler());
+	}
+
+
+	http.createServer(app).listen(app.get('port'), function(){
+	  //console.log('Express server listening on port ' + app.get('port'));
+	});
+
+	routes(app);
+/*
 if (cluster.isMaster) {
   // Fork workers.
   for (var i = 0; i < numCPUs; i++) {
@@ -32,8 +60,8 @@ if (cluster.isMaster) {
 	app.use(express.logger('dev'));
 	app.use(express.bodyParser({uploadDir:'./public/uploads/temp'}));
 	app.use(express.methodOverride());
-    app.use(express.cookieParser());
-    app.use(express.session({secret:'dianping'}));
+	app.use(express.cookieParser('admin dianping'));
+	app.use(express.session());
 	app.use(app.router);
 	//app.use(express.static(path.join(__dirname, 'public')));
 
@@ -48,4 +76,4 @@ if (cluster.isMaster) {
 	});
 
 	routes(app);
-}
+}*/

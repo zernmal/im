@@ -98,14 +98,24 @@ module.exports = function(app) {
 
 
 	//进入后台前判断是否登录了，如果未登录直接跳到后台登录页面
-	app.get(/\/admin.*/,function(req,res){
-		console.log(req.session.userid);
-		if(req.url!="/admin/loginp"){
-			if(!req.session.userid){
-				res.render('admin/login', {title:"后台登录",redirect_url:"/admin"});
-			}
-		}
-	});	
+	/*app.get(/^\/admin(.*)/,function(req,res){
+			if(req.url!="/admin/login"&&req.url!="/admin/loginp"){
+				if (!req.session.userid) {
+					res.redirect('/admin/login');
+				}
+		  }
+	});*/
+
+	app.get('/admin/login',function(req,res){
+		console.log(req.cookies);
+		if(req.cookies.userid&&req.cookies.isAdmin){
+			res.redirect("/admin");
+		}else if(req.cookies.userid&&!req.cookies.isAdmin){
+			res.render('notic', {msg:"没有权限",gourl:"/"});			
+		}else{	
+			res.render('admin/login', {title:"后台登录",redirectUrl:req.url , errMsg : ""});
+		}		
+	});
 
 	//后台登录处理
 	app.post('/admin/loginp',function(req,res){
