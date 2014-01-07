@@ -3,8 +3,8 @@
 <ul>
 	<li>the MVC modules is divided clearly in the struct;</li>
 	<li>muti-process</li>
-	<li>useing mysql dababase</li>
-	<li>useing ejs template engine</li>
+	<li>using mysql dababase</li>
+	<li>using ejs template engine</li>
 	<li>easy to use and modify</li>
 <ul>
 
