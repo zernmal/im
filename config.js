@@ -16,5 +16,9 @@ module.exports = {
 		"dbname" : "im",
 		"user" : "root",
 		"passwd" : ""
+	},
+	redisInfo : {
+		"host" : "127.0.0.1",
+		"port" : ""
 	}
 }

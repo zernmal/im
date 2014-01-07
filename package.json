@@ -9,6 +9,7 @@
     "express": "3.4.4",
     "ejs": "*",    
     "mysql": "2.0.0",
-    "node.extend" : "1.0.8"
+    "node.extend" : "1.0.8",
+    "redis" : "0.10.0"
   }
 }

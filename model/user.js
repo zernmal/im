@@ -18,28 +18,37 @@ var User = function(){
 
 	_that.get = function(options,callback){
 		options = options || {};
-		var whereSql = [];
-		for(var i in options){
-			if(i=="userid"||i=="username"||i=="email"||i=="password"){
-				whereSql.push(" "+i+" = '"+options[i]+"' ");
-			}
-		}
-		if(whereSql.length>0){
-			whereSql = " where "+ whereSql.join(" and ");
-		}else{
-			whereSql = "";
-		}
-		DBpool.getConnection(function(err, connection) {
-			connection.query( "select * from i_user "+whereSql+" limit 1 ", function(err, rows, fields) {
-				if (err) throw err;
-				connection.release();
-				if(rows&&rows[0]){
-					callback(rows[0],fields);
-				}else{
-					callback(false,fields);
+		var getUserBySql = function(){
+			var whereSql = [];
+			for(var i in options){
+				if(i=="userid"||i=="username"||i=="email"||i=="password"){
+					whereSql.push(" "+i+" = '"+options[i]+"' ");
 				}
+			}
+			if(whereSql.length>0){
+				whereSql = " where "+ whereSql.join(" and ");
+			}else{
+				whereSql = "";
+			}
+			DBpool.getConnection(function(err, connection) {
+				connection.query( "select * from i_user "+whereSql+" limit 1 ", function(err, rows, fields) {
+					if (err) throw err;
+					connection.release();
+					if(rows&&rows[0]){
+						callback(rows[0],fields);
+					}else{
+						callback(false,fields);
+					}
+				});
 			});
-		});
+		};
+		if(options.userid){
+
+		}else{
+
+		}
+
+		
 	};
 	
 	_that.update = function(){
