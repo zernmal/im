@@ -52,7 +52,17 @@ var User = function(){
 
 	};
 	_that.isAdmin = function(userid,callback){
-		
+		DBpool.getConnection(function(err, connection) {
+			connection.query( "select * from s_admin where userid = "+userid+" limit 1 ", function(err, rows, fields) {
+				if (err) throw err;
+				connection.release();
+				if(rows&&rows[0]){
+					callback(rows[0],fields);
+				}else{
+					callback(false,fields);
+				}
+			});
+		});
 	}
 
 };

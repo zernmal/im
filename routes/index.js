@@ -49,6 +49,13 @@ module.exports = function(app) {
 				callback && callback(nav);
 			});
 		},
+		checkAdminLogin =  function(req,res){
+			if (!req.session.userid) {
+				res.redirect('/admin/login?redirecturl='+req.url);
+			}else if(!req.session.isAdmin){
+				res.render("notic",{msg:"没有权限",gourl:"/"});					
+			}
+		},
 		methods = {
 			go404 : go404,
 			getNav : getNav
@@ -98,23 +105,14 @@ module.exports = function(app) {
 
 
 	//进入后台前判断是否登录了，如果未登录直接跳到后台登录页面
-	/*app.get(/^\/admin(.*)/,function(req,res){
+/*	app.get(/^\/admin(.*)/,function(req,res){
 			if(req.url!="/admin/login"&&req.url!="/admin/loginp"){
-				if (!req.session.userid) {
-					res.redirect('/admin/login');
-				}
+				
 		  }
 	});*/
 
 	app.get('/admin/login',function(req,res){
-		console.log(req.cookies);
-		if(req.cookies.userid&&req.cookies.isAdmin){
-			res.redirect("/admin");
-		}else if(req.cookies.userid&&!req.cookies.isAdmin){
-			res.render('notic', {msg:"没有权限",gourl:"/"});			
-		}else{	
-			res.render('admin/login', {title:"后台登录",redirectUrl:req.url , errMsg : ""});
-		}		
+		getActionFile('admin').login(req,res);					
 	});
 
 	//后台登录处理
@@ -122,74 +120,94 @@ module.exports = function(app) {
 		getActionFile('admin').loginp(req,res);	
 	});
 
+	//后台退出
+	app.get('/admin/logout',function(req,res){
+		getActionFile('admin').logout(req,res);			
+	});
+
+
 	//后台首页
 	app.get('/admin',function(req,res){
+		checkAdminLogin(req,res);
 		getActionFile('admin').index(req,res);	
 	});
 
 	//后台栏目列表
-	app.get('/admin/category/index',function(req,res){
+	app.get('/admin/category/index',function(req,res){		
+		checkAdminLogin(req,res);
 		getActionFile('admin/category').index(req,res);	
 	});
 
 	//后台add栏目
 	app.get('/admin/category/add',function(req,res){
+		checkAdminLogin(req,res);
 		getActionFile('admin/category').add(req,res);	
 	});
 
 	//后台create栏目
 	app.post('/admin/category/create',function(req,res){
+		checkAdminLogin(req,res);
 		getActionFile('admin/category').create(req,res);	
 	});
 
 	//后台edit栏目
 	app.get('/admin/category/edit',function(req,res){
+		checkAdminLogin(req,res);
 		getActionFile('admin/category').edit(req,res);	
 	});
 
 	//后台update栏目
 	app.post('/admin/category/update',function(req,res){
+		checkAdminLogin(req,res);
 		getActionFile('admin/category').update(req,res);	
 	});
 
 	//后台destroy栏目
 	app.get('/admin/category/destroy',function(req,res){
+		checkAdminLogin(req,res);
 		getActionFile('admin/category').destroy(req,res);	
 	});
 
 
 	//后台 article列表
 	app.get('/admin/article/index',function(req,res){
+		checkAdminLogin(req,res);
 		getActionFile('admin/article').index(req,res);	
 	});
 
 	//后台add article
 	app.get('/admin/article/add',function(req,res){
+		checkAdminLogin(req,res);
 		getActionFile('admin/article').add(req,res);	
 	});
 
 	//后台destroy article
 	app.get('/admin/article/destroy',function(req,res){
+		checkAdminLogin(req,res);
 		getActionFile('admin/article').destroy(req,res);	
 	});
 
 	//后台edit article
 	app.get('/admin/article/edit',function(req,res){
+		checkAdminLogin(req,res);
 		getActionFile('admin/article').edit(req,res);	
 	});
 
 	//后台update article
 	app.post('/admin/article/update',function(req,res){
+		checkAdminLogin(req,res);
 		getActionFile('admin/article').update(req,res);	
 	});
 
 	//后台create article
 	app.post('/admin/article/create',function(req,res){
+		checkAdminLogin(req,res);
 		getActionFile('admin/article').create(req,res);	
 	});
 
 	//后台系统信息
 	app.get('/admin/system/index',function(req,res){
+		checkAdminLogin(req,res);
 		getActionFile('admin/system').index(req,res);	
 	});
 	
