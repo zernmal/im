@@ -9,9 +9,6 @@ var fs = require('fs'),
 	Category = getModelFile("category"),
 	articleModel = new Article(),
 	categoryModel = new Category();
-	thePath = require("path");
-
-
  
 module.exports = function(app) {
 	
@@ -63,11 +60,49 @@ module.exports = function(app) {
 
 	//静态文件处理
 	app.get(/^\/(public\/.*)/i,function(req,res){
-		var path = req.params[0],
-			filepath = thePath.resolve(__dirname + '/../'+path);
-		if (fs.existsSync(filepath)) {
-			fs.createReadStream(filepath).pipe(res);
-			return;			
+		var	path = require("path"),
+			mime = getLibFile("mines").types,
+			config = require("../config"),
+			pathname = req.params[0],
+			//解决安全问题，需要把父目录的两个点去掉
+			filepath = path.resolve(__dirname+'/../'+ path.normalize(pathname.replace(/\.\./g, ""))),
+			ext = filepath.toString().split(".").pop(),
+			zlib = require("zlib");
+		if (fs.existsSync(filepath)) {			
+			
+			//开启Gzip压缩，并以流的形式把文件写到浏览器客户端 
+			var raw = fs.createReadStream(filepath),
+				acceptEncoding = req.headers['accept-encoding'] || "",
+				matched = ext.match(config.compress.match),
+				contentType = mime[ext] || "text/plain";
+			if (matched && acceptEncoding.match(/\bgzip\b/)) {
+			    res.writeHead(200, "Ok", {
+			        'Content-Encoding': 'gzip',
+			        'Content-Type': contentType
+			    });
+			    raw.pipe(zlib.createGzip()).pipe(res);
+			} else if (matched && acceptEncoding.match(/\bdeflate\b/)) {
+			    res.writeHead(200, "Ok", {
+			        'Content-Encoding': 'deflate',
+			        'Content-Type': contentType
+			    });
+			    raw.pipe(zlib.createDeflate()).pipe(res);
+			} else {
+			    res.writeHead(200, "Ok",{'Content-Type': contentType});
+			    raw.pipe(res);
+			}
+
+			/*fs.readFile(filepath, "binary", function (err, file) {
+                if (err) {
+                    res.writeHead(500, {'Content-Type': 'text/plain'});
+                    res.end(err);
+                } else { 
+	                var contentType = mime[ext] || "text/plain";               	
+                    res.writeHead(200, { 'Content-Type': contentType});
+                    res.write(file, "binary");
+                    res.end();
+                }
+            });*/		
 		}else{
 			go404(req,res);
 		}
@@ -239,6 +274,20 @@ module.exports = function(app) {
 			res.send(404, 'Sorry, we cannot find that!');
 		}
 	})
+
+	app.get('/mytest/:method',function(req,res){
+		var method = req.params['method'],
+			mytestAction = getActionFile('mytest');
+		if(!method){
+			mytestAction.index(req,res,methods);
+		}else{
+			if(mytestAction[method]){
+				mytestAction[method](req,res,methods);
+			}else{
+				go404(req,res);
+			}
+		}
+	});
 
 	//404页面处理
 	app.use(function (req, res) {

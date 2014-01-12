@@ -3,7 +3,8 @@
  * GET admin page.
  */
  var User = getModelFile("user"),
- 	userModel = new User();
+ 	userModel = new User(),
+ 	crypto = require("crypto");
 
 module.exports.index = function(req, res){
 	res.render('admin/index', { title: 'admin_index' });
@@ -34,12 +35,16 @@ module.exports.loginp = function(req,res){
 		password = req.body.password,
 		redirecturl = req.body.redirecturl || "/admin";
 
+	
 	if(!email||!password){
 		res.render("notic",{msg:"邮箱或密码不能为空",gourl:"/admin/login"});
 		return;
 	}
+	password = crypto.createHash('md5').update(password).digest('hex');
+
 	userModel.checkLogin(email,password,function(user){		
 		if(user){
+				console.log(user);
 			userModel.isAdmin(user.userid,function(isAdmin){
 				if(isAdmin){
 					/*res.cookie(userid ,user.userid);

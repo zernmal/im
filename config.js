@@ -15,10 +15,18 @@ module.exports = {
 		"host" : "localhost",
 		"dbname" : "im",
 		"user" : "root",
-		"passwd" : ""
+		"passwd" : "",
+		"port" : "3306"
 	},
 	redisInfo : {
 		"host" : "127.0.0.1",
 		"port" : ""
+	},
+	expires : {
+	    fileMatch: /^(gif|png|jpg|js|css)$/ig,
+	    maxAge: 60 * 60 * 24 * 365
+	},
+	compress : {
+	    match: /css|js|html/ig
 	}
 }

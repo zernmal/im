@@ -1,4 +1,5 @@
 getLibFile("db");
+var crypto = require("crypto");
 var User = function(){
 	var _that = this;
 	
@@ -13,6 +14,7 @@ var User = function(){
 	};
 
 	_that.checkLogin = function(email,password,callback){//回调里面传入用户信息
+
 		_that.get({email:email,password:password},callback);
 	};
 
@@ -42,13 +44,12 @@ var User = function(){
 				});
 			});
 		};
-		if(options.userid){
+		getUserBySql();
+		/*if(options.userid){
 
 		}else{
 
-		}
-
-		
+		}*/
 	};
 	
 	_that.update = function(){

@@ -26,7 +26,7 @@
 .box1 .title h3 small{margin-left: 10px;font-size: 18px;}
 .box1 .more a{display: block;text-align: center;line-height: 35px;background: #595959;color: #fff;}
 .recommentlist li{ list-style: none;position: relative;}
-.recommentlist li .titlepic{position: absolute;left: 0px;top: 0px;}
+.recommentlist li .titlepic{position: absolute; width: 152px; left: 0px;top: 0px;}
 .recommentlist li .titlepic img{width: 146px;height: 90px;padding: 2px;border: 1px solid #ccc;}
 .recommentlist li .des{padding-left: 156px;height: 103px;margin-bottom: 8px;border-bottom: 1px dashed #cdcdcd;}
 .recommentlist li .des .tit{line-height: 35px;height: 35px;overflow: hidden;font-size: 14px;font-weight: 600;}
