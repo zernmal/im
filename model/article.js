@@ -234,11 +234,11 @@ var Article = function(){
 							throw err;
 							fCallback && fCallback();
 						}else{
-							
+							//标题图片
 							if(picfile&&picfile.name){//如果有上传文件，则执行文件上传操作 
 								var date = new Date(),
 									tmp_path = picfile.path,
-									dateDir = date.getFullYear()+"-"+date.getMonth(),
+									dateDir = date.getFullYear()+"-"+(parseInt(date.getMonth())+1).toString(),
 									targetDir = 'public/uploads/article/'+ dateDir ,//直接将网站目录
 									target_path = targetDir + "/" + ai.articleid + "." + picfile.name.split(".").pop(),
 									moveFile = function(){
@@ -310,10 +310,11 @@ var Article = function(){
 							throw err;
 							fCallback && fCallback();
 						}else{
-							if(picfile&&picfile.name){//如果有上传文件，则执行文件上传操作
+							//标题图片处理
+							if(picfile&&picfile.name){//如果有就上传文件，则执行文件上传操作
 								var date = new Date(),
 									tmp_path = picfile.path,
-									dateDir = date.getFullYear()+"-"+date.getMonth(),
+									dateDir = date.getFullYear()+"-"+(parseInt(date.getMonth())+1).toString(),
 									targetDir = 'public/uploads/article/'+ dateDir ,//直接将网站目录
 									target_path = targetDir + "/" + ai.articleid + "." + picfile.name.split(".").pop(),
 									moveFile = function(){
