@@ -29,3 +29,12 @@ $("#categories>option").each(function(){
 });
 setCategoryLevel(0,0);
 $categories.html(optStr);
+
+//生成编辑器
+KindEditor.ready(function(K) {
+	console.log(K);
+	window.editor = K.create('#article_content',{
+		filterMode : false,
+		uploadJson : '/fileupload'
+	});
+});

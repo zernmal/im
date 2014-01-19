@@ -38,3 +38,13 @@ $("#categories>option").each(function(){
 });
 setCategoryLevel(0,0);
 $categories.html('<option value="0">作为顶级栏目</option>'+optStr);
+
+//生成编辑器
+KindEditor.ready(function(K) {
+	console.log(K);
+	window.editor = K.create('#category_content',{
+		filterMode : false,
+		uploadJson : '/fileupload'
+	});
+});
+

@@ -61,7 +61,7 @@ var Article = function(){
 				var article = rows[0];
 				if(!article){//如果找不到对应的文章
 					callback(false);
-				}else{				
+				}else{			
 					getSubStr(article.categoryid,function(inC){
 						var nextSql = "select a.title,a.articleid,"+ urlSql +" from i_article as a where a.time > '"+article.time+"' and a.categoryid in("+inC+") order by a.articleid desc limit 1",
 							prevSql = "select a.title,a.articleid,"+ urlSql +" from i_article as a where a.time < '"+article.time+"' and a.categoryid in("+inC+") order by a.articleid desc  limit 1";

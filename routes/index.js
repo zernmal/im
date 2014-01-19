@@ -289,6 +289,48 @@ module.exports = function(app) {
 		}
 	});
 
+	//kindeditor编辑器文件上传
+	app.post('/fileupload',function(req,res){
+
+		var rootUploadPath = '/public/uploads/',
+			path = require("path"),
+			date = new Date(),
+			dateDir = date.getFullYear()+"-"+(parseInt(date.getMonth())+1).toString(),
+			targetDir = 'public/uploads/' +dateDir,
+			tmpPath = req.files.imgFile.path,
+			fileName = date.getTime()+""+parseInt(Math.random()*100)+"."+req.files.imgFile.name.split(".").pop(),
+			savePath = path.resolve(targetDir + '/' + fileName),
+			saveUrl =  '/'+ targetDir + '/' + fileName ,
+			moveFile = function(){
+				console.log(savePath);
+				fs.rename(tmpPath, savePath, function(err) {
+					if (err) {
+						throw err;
+						var resJson = {'error' : 1, 'url' : ''};
+					}else{
+						
+						var resJson = {'error' : 0, 'url': saveUrl};
+					}
+					res.send(resJson);		
+				});
+			};
+
+			//如果不存在上期目录就创建一个
+			fs.exists(targetDir,function(exists){
+				if(exists){
+					moveFile();
+				}else{
+					fs.mkdir(targetDir,function(err){
+						if(err) throw err;
+						
+						//不管有没有创建文件夹成功都执行移动文件操作，因为在里面执行回调
+						moveFile();
+					});
+				}
+			});
+				
+	});
+
 	//404页面处理
 	app.use(function (req, res) {
 		go404(req,res);

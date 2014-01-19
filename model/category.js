@@ -65,6 +65,10 @@ var Category = function(){
 					for(var i = 0 ; i < rows.length ; i++){
 						rows[i].url = categoryUrl(rows[i].categoryid);
 						categories[rows[i].categoryid] = rows[i];
+
+						if(rows[i].categoryid==4){
+							console.log(rows[i].content);
+						}
 					}
 					connection.release();
 					callback && callback(categories,fields);
