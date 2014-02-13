@@ -1,0 +1,10 @@
+<div class="box5">
+	<div class="title">
+		<a href="<%= lastCategories.topCategory.url %>"><%= lastCategories.topCategory.name %></a>
+	</div>
+	<ul>
+		<% for( var i in lastCategories.subCategories) { %>	
+		<li><a href="<%= lastCategories.subCategories[i].url %>"><%= lastCategories.subCategories[i].name %></a></li>
+		<% } %>
+	</ul>
+</div>

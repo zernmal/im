@@ -18,38 +18,36 @@
 			<div id="main">
 				<div class="subpagerow clearfix">
 					<div class="col1">
-						<div class="box5">
-							<div class="title">
-								<a href="<%= lastCategories.topCategory.url %>"><%= lastCategories.topCategory.name %></a>
-							</div>
-							<ul>
-								<% for( var i in lastCategories.subCategories) { %>	
-								<li><a href="<%= lastCategories.subCategories[i].url %>"><%= lastCategories.subCategories[i].name %></a></li>
-								<% } %>
-							</ul>
-						</div>
+                        <%- include ../_subcats %> 
+                        <%- include ../_books %>				
 					</div>
 					<div class="col2">
-						<div class="list">
-							<ul class="recommentlist clearfix">
-							<% for( var i in articles) {%>		
-								<li>
-									<div class="des">
-										<p class="tit"><a href="<%= articles[i].url %>" title="<%= articles[i].title %>"><%= articles[i].title %></a></p>
-										<p class="intro"><%= articles[i].description %></p>
-									</div>
-									<a href="#" title="<%= articles[i].title %>" class="titlepic">
-										<img src="<%= articles[i].pic %>" alt="<%= articles[i].title %>">
-									</a>
-								</li>
-				  			<% } %>
-							</ul>
-							<div class="pagelist">
-								<a href="<%= page.prev %>" <% if(page.prev==""){ %> onclick="alert('已经是第一页了');return false;" <%} %> >上一页</a>
-								<% for( var i in page.list) {%>	
-									<a href="<%= page.list[i].url %>" <% if(page.list[i].num==page.cur){ %> class="on" <%} %> ><%= page.list[i].num %></a>
-								<% } %>
-								<a href="<%= page.next %>" <% if(page.next==""){ %> onclick="alert('已经是最后一页了');return false;" <%} %>>下一页</a>			
+						<div class="box1">
+							<div class="title">
+								<span class="grey">以营销角度评广告</span>
+                                <h3><%= category.name %></h3>
+							</div>
+							<div class="center">
+								<ul class="recommentlist clearfix">
+								<% for( var i in articles) {%>		
+									<li>
+										<div class="des">
+											<p class="tit"><a href="<%= articles[i].url %>" title="<%= articles[i].title %>"><%= articles[i].title %></a></p>
+											<p class="intro"><%= articles[i].description %></p>
+										</div>
+										<a href="#" title="<%= articles[i].title %>" class="titlepic">
+											<img src="<%= articles[i].pic %>" alt="<%= articles[i].title %>">
+										</a>
+									</li>
+					  			<% } %>
+								</ul>
+								<div class="pagelist">
+									<a href="<%= page.prev %>" <% if(page.prev==""){ %> onclick="alert('已经是第一页了');return false;" <%} %> >上一页</a>
+									<% for( var i in page.list) {%>	
+										<a href="<%= page.list[i].url %>" <% if(page.list[i].num==page.cur){ %> class="on" <%} %> ><%= page.list[i].num %></a>
+									<% } %>
+									<a href="<%= page.next %>" <% if(page.next==""){ %> onclick="alert('已经是最后一页了');return false;" <%} %>>下一页</a>			
+								</div>						
 							</div>
 						</div>
 					</div>

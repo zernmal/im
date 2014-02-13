@@ -1,8 +1,13 @@
-<div id="header" class="clearfix">
-	<div class="headerwrap">
+<div id="header" >
+	<div class="headerwrap" class="clearfix">
 		<div class="logo clearfix">
-			<img src="/public/skin/img/logo.jpg" alt="">
-			<div class="subtext"><%= category.name %></div>
+			<img src="/public/skin/img/site_logo.jpg" alt="">
+		</div>
+		<div class="search">
+			<form action="/search" class="clearfix">
+				<input type="text" class="text" name="keyword" >
+				<input type="submit" value="O" class="subbtn">
+			</form>
 		</div>
 		<div class="nav">
 			<ul class="level1">
@@ -12,4 +17,4 @@
 			</ul>
 		</div>
 	</div>
-</div>		
+</div>
