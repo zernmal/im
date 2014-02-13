@@ -65,10 +65,6 @@ var Category = function(){
 					for(var i = 0 ; i < rows.length ; i++){
 						rows[i].url = categoryUrl(rows[i].categoryid);
 						categories[rows[i].categoryid] = rows[i];
-
-						if(rows[i].categoryid==4){
-							console.log(rows[i].content);
-						}
 					}
 					connection.release();
 					callback && callback(categories,fields);
@@ -97,7 +93,7 @@ var Category = function(){
 		});			
 					
 	};
-	_that.create = function(category,sCallback,fCallback){
+	_that.create = function(category,sCallback,fCallback){		
 		var  picfile = category.picfile,
 			category = toDbCategoryInfo(category),
 			c = category.category,
@@ -154,6 +150,7 @@ var Category = function(){
 		});// dbpool getconnection end
 	};
 	_that.update = function(categoryid,category,sCallback,fCallback){
+		
 		category.categoryid = categoryid;
 		var picfile = category.picfile,
 			category = toDbCategoryInfo(category),

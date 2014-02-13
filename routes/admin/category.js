@@ -43,8 +43,6 @@ module.exports.update = function(req,res){
 		category = req.body.category;
 	category.picfile = req.files.picfile;
 
-	console.log(req.files);
-
 	categoryModel.update(categoryid,category,function(){
 		res.render("notic",{msg:'更新栏目成功',gourl:"/admin/category/index"});
 	});
