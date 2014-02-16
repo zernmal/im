@@ -4,8 +4,7 @@ var Article = getModelFile("article"),
 	categoryModel = new Category(),
 	typeid = 1;//文章的类型id为1
 
-module.exports.index = function(req, res){
-	
+module.exports.index = function(req, res){	
 	articleModel.getCustom({orderby:{time:"desc"}},function(articles,fields){
 		res.render('admin/article/index', { title: '文章列表',articles:articles});
 	});

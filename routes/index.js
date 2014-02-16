@@ -110,7 +110,6 @@ module.exports = function(app) {
 
 	//首页
 	app.get('/',function(req,res){
-
 		getNav(function(nav){
 			categoryModel.getAll({},function(categories,cfields){				
 				var tData = { title: '壹圆广告点点评网',
@@ -122,10 +121,14 @@ module.exports = function(app) {
 									url : "/"
 								}
 							};
-					
-				articleModel.getCustom({infonum:8},function(articles,fields){
+				
+				//获取最新信息	
+				articleModel.getCustom({infonum:8,categoryid:"3,9"},function(articles,fields){
 					tData.articles = articles;
-					res.render('../templates/index', tData);
+					articleModel.getCustom({infonum:8,categoryid:13},function(industry,files){
+						tData.industry = industry;
+						res.render('../templates/index', tData);
+					});
 				});
 						
 			});

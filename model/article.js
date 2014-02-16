@@ -36,9 +36,10 @@ var Article = function(){
 			return article;
 		},
 		getSubStr = function(categoryid,callback){
-			categoryid = parseInt(categoryid);
+			//categoryid = parseInt(categoryid);
 			DBpool.getConnection(function(err, connection) {
-				connection.query("select categoryid from s_category where pid = "+categoryid+" ",function(err,rows,fields){
+				//connection.query("select categoryid from s_category where pid = "+categoryid+" ",function(err,rows,fields){
+				connection.query("select categoryid from s_category where pid in ("+categoryid+") ",function(err,rows,fields){
 					var inC = [categoryid];
 					for(var i = 0 ; i < rows.length ; i++){
 						inC.push(rows[i].categoryid);
@@ -61,7 +62,7 @@ var Article = function(){
 				var article = rows[0];
 				if(!article){//如果找不到对应的文章
 					callback(false);
-				}else{			
+				}else{				
 					getSubStr(article.categoryid,function(inC){
 						var nextSql = "select a.title,a.articleid,"+ urlSql +" from i_article as a where a.time > '"+article.time+"' and a.categoryid in("+inC+") order by a.articleid desc limit 1",
 							prevSql = "select a.title,a.articleid,"+ urlSql +" from i_article as a where a.time < '"+article.time+"' and a.categoryid in("+inC+") order by a.articleid desc  limit 1";
@@ -128,7 +129,7 @@ var Article = function(){
 
 				},
 				numLimit = function(){
-					articleSql += ' limit '+ ((curPage-1)*infonum+1) + ',' + infonum + ' ';
+					articleSql += ' limit '+ ((curPage-1)*infonum) + ',' + infonum + ' ';
 					goArticleQuery();
 				},
 				orderLimit = function(){
@@ -216,10 +217,10 @@ var Article = function(){
 			
 		});// dbpool getconnention  end		
 	};
-	_that.create = function(article,sCallback,fCallback){
-
+	_that.create = function(articleData,sCallback,fCallback){
 		DBpool.getConnection(function(err, connection) {
-			var picfile = article.picfile,
+			var article = articleData,
+				picfile = article.picfile,
 				article = toDbArticleInfo(article),
 				a = article.article,
 				ai = article.article_info;
@@ -234,11 +235,11 @@ var Article = function(){
 							throw err;
 							fCallback && fCallback();
 						}else{
-							//标题图片
+							
 							if(picfile&&picfile.name){//如果有上传文件，则执行文件上传操作 
 								var date = new Date(),
 									tmp_path = picfile.path,
-									dateDir = date.getFullYear()+"-"+(parseInt(date.getMonth())+1).toString(),
+									dateDir = date.getFullYear()+"-"+date.getMonth(),
 									targetDir = 'public/uploads/article/'+ dateDir ,//直接将网站目录
 									target_path = targetDir + "/" + ai.articleid + "." + picfile.name.split(".").pop(),
 									moveFile = function(){
@@ -310,11 +311,10 @@ var Article = function(){
 							throw err;
 							fCallback && fCallback();
 						}else{
-							//标题图片处理
-							if(picfile&&picfile.name){//如果有就上传文件，则执行文件上传操作
+							if(picfile&&picfile.name){//如果有上传文件，则执行文件上传操作
 								var date = new Date(),
 									tmp_path = picfile.path,
-									dateDir = date.getFullYear()+"-"+(parseInt(date.getMonth())+1).toString(),
+									dateDir = date.getFullYear()+"-"+date.getMonth(),
 									targetDir = 'public/uploads/article/'+ dateDir ,//直接将网站目录
 									target_path = targetDir + "/" + ai.articleid + "." + picfile.name.split(".").pop(),
 									moveFile = function(){

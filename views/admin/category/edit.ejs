@@ -36,7 +36,7 @@
 				</div>
 				<div class="form-group">
 				  <label for="">上级栏目</label>
-				  <select id="categories" class="form-control"  name="category[pid]">
+				  <select id="categories" class="form-control"  data-pid="<%= category.pid %>" name="category[pid]">
 					  <% for( var i in categories) {%>
 						<% if(category.categoryid!=categories[i].categoryid){ %>
 						<option <% if(category.pid==categories[i].categoryid){ %>selected="selected"<% } %> data-pid="<%= categories[i].pid %>" value="<%= categories[i].categoryid %>"><%= categories[i].name %></option>

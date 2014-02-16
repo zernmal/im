@@ -11,15 +11,15 @@ $("#categorytype").on("change",function(){
 var categories = {},
 	optStr = "",
 	$categories = $("#categories"),
-	selectVal = $categories.val(),
+	selectVal = $categories.data("pid"),
 	setCategoryLevel = function(pid,level){
 		var spaceStr = "",
 			selectedStr = "";
 		for(var k = 0 ; k < level ; k++){
-			spaceStr = spaceStr+"----";
+			spaceStr = spaceStr+"&nbsp;&nbsp;&nbsp;&nbsp;";
 		}
 		for(var i in categories){
-			if(selectVal==i){
+			if(selectVal&&selectVal==i){
 				selectedStr = ' selected="selected" ';
 			}else{
 				selectedStr = "";
@@ -41,7 +41,6 @@ $categories.html('<option value="0">作为顶级栏目</option>'+optStr);
 
 //生成编辑器
 KindEditor.ready(function(K) {
-	console.log(K);
 	window.editor = K.create('#category_content',{
 		filterMode : false,
 		uploadJson : '/fileupload'
