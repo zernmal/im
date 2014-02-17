@@ -53,9 +53,26 @@ module.exports = function(app) {
 				res.render("notic",{msg:"没有权限",gourl:"/"});					
 			}
 		},
-		methods = {
+		getBooks = function(callback){
+			//获取推荐书目
+			articleModel.getCustom({infonum:5,categoryid:17},function(books,fields){
+				callback && callback(books);
+			});
+		},
+		getCommonData = function(callback){
+			//获取所有页面需要用到的数据 Nav ,Books
+			var data = {};
+			getNav(function(nav){
+				data['nav'] = nav;
+				getBooks(function(books){
+					data['books'] = books;
+					callback && callback(data);
+				});
+			});
+		},
+		base = {
 			go404 : go404,
-			getNav : getNav
+			getCommonData : getCommonData
 		};
 
 	//静态文件处理
@@ -125,7 +142,7 @@ module.exports = function(app) {
 				//获取最新信息	
 				articleModel.getCustom({infonum:8,categoryid:"3,9"},function(articles,fields){
 					tData.articles = articles;
-					articleModel.getCustom({infonum:8,categoryid:13},function(industry,files){
+					articleModel.getCustom({infonum:8,categoryid:13},function(industry,ifields){
 						tData.industry = industry;
 						res.render('../templates/index', tData);
 					});
@@ -254,7 +271,7 @@ module.exports = function(app) {
 		var idReg = /^\d+$/ ;
 		if(idReg.test(req.params["id"])){	
 			req.query.articleid = req.params["id"];
-			getActionFile('article').index(req,res,methods);
+			getActionFile('article').index(req,res,base);
 		}else{
 			res.send(404, 'Sorry, we cannot find that!');
 		}
@@ -272,7 +289,7 @@ module.exports = function(app) {
 			}
 			req.query.categoryid = id[0];
 			req.query.curPage = curPage;			
-			getActionFile('category').index(req,res,methods);
+			getActionFile('category').index(req,res,base);
 		}else{
 			res.send(404, 'Sorry, we cannot find that!');
 		}
@@ -282,10 +299,10 @@ module.exports = function(app) {
 		var method = req.params['method'],
 			mytestAction = getActionFile('mytest');
 		if(!method){
-			mytestAction.index(req,res,methods);
+			mytestAction.index(req,res,base);
 		}else{
 			if(mytestAction[method]){
-				mytestAction[method](req,res,methods);
+				mytestAction[method](req,res,base);
 			}else{
 				go404(req,res);
 			}

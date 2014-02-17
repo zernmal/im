@@ -6,7 +6,7 @@ var Article = getModelFile("article"),
 
 
 module.exports.index = function(req, res, methods){
-	methods.getNav(function(nav){
+	methods.getCommonData(function(data){
 		categoryModel.getAll({},function(categories,cfields){
 			articleModel.get(req.query.articleid,function(article,afields){
 				if(!article){
@@ -15,7 +15,8 @@ module.exports.index = function(req, res, methods){
 					var tData = {
 							title : article.title,
 							lastCategories:getLastCategories(categories,article.categoryid),
-							nav : nav,
+							nav : data.nav,
+							books : data.books,
 							article : article,
 							category : categories[article.categoryid]
 						};

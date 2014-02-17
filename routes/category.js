@@ -10,7 +10,7 @@ module.exports.index = function(req, res ,methods){
 		options = {orderby:{time:"desc"},categoryid:categoryid,curPage:curPage};
 
 	
-	methods.getNav(function(nav){
+	methods.getCommonData(function(data){
 		categoryModel.getAll({},function(categories,cfields){
 			category = categories[categoryid];
 			if(!category){
@@ -20,7 +20,8 @@ module.exports.index = function(req, res ,methods){
 			var tData = { title: category.name,
 							lastCategories:getLastCategories(categories,categoryid),
 							category : category,
-							nav : nav
+							nav : data.nav,
+							books : data.books
 						};
 			if(category.isindex==1||category.isindex==2){//列表形式
 				options.infonum = category.infonum;
